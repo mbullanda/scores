@@ -19,7 +19,7 @@ public class Club {
     @Column(name = "date_of_foundation")
     private LocalDate dateOfFoundation;
     private int trophies;
-
+    
     private Country country;
 
 
