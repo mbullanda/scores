@@ -3,10 +3,7 @@ package model;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Data
@@ -22,5 +19,11 @@ public class Country {
     private int population;
     @Column(name = "iso_code")
     private String isoCode;
+    @OneToMany
+    private Club club;
+    @OneToMany
+    private Player player;
+    @OneToMany
+    private Coach coach;
 
 }

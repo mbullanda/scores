@@ -19,14 +19,13 @@ public class Player {
     private String firstName;
     @Column(name = "last_name")
     private String lastName;
-    @Basic
     @Column(name = "date_of_birth")
     private LocalDate dateOfBirth;
     private int goals;
     private int assists;
-
+    @ManyToOne
     private Club club;
-
+    @ManyToOne
     private Country country;
 
 

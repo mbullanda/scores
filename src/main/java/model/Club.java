@@ -15,12 +15,15 @@ public class Club {
     @GeneratedValue
     private Long id;
     private String name;
-    @Basic
     @Column(name = "date_of_foundation")
     private LocalDate dateOfFoundation;
     private int trophies;
-    
+    @ManyToOne
     private Country country;
+    @OneToMany
+    private Player player;
+    @OneToMany
+    private Coach coach;
 
 
 }

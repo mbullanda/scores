@@ -18,11 +18,10 @@ public class Coach {
     private String firstName;
     @Column(name = "last_name")
     private String lastName;
-    @Basic
     @Column(name = "date_of_birth")
     private LocalDate dateOfBirth;
-
+    @ManyToOne
     private Club club;
-
+    @ManyToOne
     private Country country;
 }
