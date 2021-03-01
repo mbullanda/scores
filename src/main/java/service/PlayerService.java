@@ -8,7 +8,6 @@ import model.Player;
 public class PlayerService {
     private final PlayerDao playerDao;
 
-
     public void savePlayer(Player player) {
         if (playerDao.isPlayerPresent(player)){
             System.out.println("Player already present");

@@ -1,26 +1,26 @@
 package dao;
 
-import model.Player;
+import model.Club;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 
-public class PlayerDao {
-    public boolean isPlayerPresent(Player player) {
-        //sprawdza czy piłkarz już istnieje
+public class ClubDao {
+
+    public boolean isClubPresent(Club club) {
         return false;
     }
 
-    public void savePlayer(Player player) {
-        EntityManagerFactory factory = SessionConnector.createFactory(Player.class);
+    public void saveClub(Club club) {
+        EntityManagerFactory factory = SessionConnector.createFactory(Club.class);
         EntityManager entityManager = factory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
 
-        entityManager.persist(player);
+        entityManager.persist(club);
 
-        System.out.println("Saving player: " + player);
+        System.out.println("Saving club: " + club);
 
         transaction.commit();
         entityManager.close();
