@@ -2,9 +2,7 @@ package dao;
 
 import model.Club;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
+import javax.persistence.*;
 
 public class ClubDao {
 
@@ -25,4 +23,22 @@ public class ClubDao {
         transaction.commit();
         entityManager.close();
     }
+
+    public static Club findClub(String name) {
+        EntityManagerFactory factory = SessionConnector.createFactory(Club.class);
+        EntityManager entityManager = factory.createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+
+        TypedQuery<Club> query = entityManager.createQuery("Select c from Club c where c.name = :name", Club.class);
+        query.setParameter("name", name);
+        Club club = query.getSingleResult();
+
+        transaction.commit();
+        entityManager.close();
+
+        return club;
+    }
+
+
 }

@@ -1,13 +1,17 @@
 package model;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Data
 @NoArgsConstructor
+@EqualsAndHashCode(exclude = {"clubs", "players", "coaches"})
 public class Country {
 
     @Id
@@ -19,11 +23,18 @@ public class Country {
     private int population;
     @Column(name = "iso_code")
     private String isoCode;
-    @OneToMany
-    private Club club;
-    @OneToMany
-    private Player player;
-    @OneToMany
-    private Coach coach;
+    @OneToMany(mappedBy = "country")
+    private Set<Club> clubs = new HashSet<>();
+    @OneToMany(mappedBy = "country")
+    private Set<Player> players = new HashSet<>();
+    @OneToMany(mappedBy = "country")
+    private Set<Coach> coaches = new HashSet<>();
+
+    public Country (String name, int surfaceArea, int population, String isoCode) {
+        this.name = name;
+        this.surfaceArea = surfaceArea;
+        this.population = population;
+        this.isoCode = isoCode;
+    }
 
 }

@@ -20,7 +20,7 @@ public class PlayerDao {
 
         entityManager.persist(player);
 
-        System.out.println("Saving player: " + player);
+        System.out.println("Saving player: " + player.getFirstName() + " " + player.getLastName());
 
         transaction.commit();
         entityManager.close();

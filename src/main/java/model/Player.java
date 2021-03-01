@@ -1,7 +1,9 @@
 package model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -29,5 +31,15 @@ public class Player {
     private Country country;
 
 
+    public Player(int number, String firstName, String lastName, LocalDate parsedDate, int goals, int assists, Club club, Country country) {
+        this.number = number;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dateOfBirth = parsedDate;
+        this.goals = goals;
+        this.assists = assists;
+        this.club = club;
+        this.country = country;
 
+    }
 }

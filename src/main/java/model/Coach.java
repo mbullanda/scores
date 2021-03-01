@@ -20,8 +20,18 @@ public class Coach {
     private String lastName;
     @Column(name = "date_of_birth")
     private LocalDate dateOfBirth;
-    @ManyToOne
+    @OneToOne
     private Club club;
     @ManyToOne
     private Country country;
+
+    public Coach (String firstName, String lastName, LocalDate dateOfBirth, Club club, Country country){
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dateOfBirth = dateOfBirth;
+        this.club = club;
+        this.country = country;
+
+
+    }
 }

@@ -23,6 +23,17 @@ public class Main {
 
         ConsoleController consoleController = new ConsoleController(playerService, clubService, coachService, countryService);
 
+        for (int i = 0; ; i++) {
+            System.out.println("Enter action: ");
+            System.out.println("1.Add new player.");
+            System.out.println("0.Exit");
+            int number = consoleController.scanner().nextInt();
+            if (number == 1) {
+                consoleController.savePlayer();
+            } else if (number == 1){
+                break;
+            }
+        }
 
     }
 
