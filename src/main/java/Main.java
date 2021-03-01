@@ -1,9 +1,11 @@
 import controller.ConsoleController;
 import dao.ClubDao;
 import dao.CoachDao;
+import dao.CountryDao;
 import dao.PlayerDao;
 import service.ClubService;
 import service.CoachService;
+import service.CountryService;
 import service.PlayerService;
 
 public class Main {
@@ -12,12 +14,14 @@ public class Main {
         PlayerDao playerDao = new PlayerDao();
         CoachDao coachDao = new CoachDao();
         ClubDao clubDao = new ClubDao();
+        CountryDao countryDao = new CountryDao();
 
         PlayerService playerService = new PlayerService(playerDao);
         CoachService coachService = new CoachService(coachDao);
         ClubService clubService = new ClubService(clubDao);
+        CountryService countryService = new CountryService(countryDao);
 
-        ConsoleController consoleController = new ConsoleController(playerService, clubService, coachService);
+        ConsoleController consoleController = new ConsoleController(playerService, clubService, coachService, countryService);
 
 
     }

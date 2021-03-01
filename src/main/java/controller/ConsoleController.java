@@ -3,9 +3,11 @@ package controller;
 import lombok.AllArgsConstructor;
 import model.Club;
 import model.Coach;
+import model.Country;
 import model.Player;
 import service.ClubService;
 import service.CoachService;
+import service.CountryService;
 import service.PlayerService;
 
 @AllArgsConstructor
@@ -13,6 +15,7 @@ public class ConsoleController {
     private final PlayerService playerService;
     private final ClubService clubService;
     private final CoachService coachService;
+    private final CountryService countryService;
 
     public void savePlayer(){
         //scanner i te inne rzeczy dla użytkownika do wczytywania
@@ -23,6 +26,9 @@ public class ConsoleController {
     }
     public void saveClub(){
         clubService.saveClub(new Club());
+    }
+    public void saveCountry(){
+        countryService.saveCountry(new Country());
     }
 
 }
