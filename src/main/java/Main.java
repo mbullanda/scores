@@ -16,6 +16,7 @@ import service.PlayerService;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
+import java.time.LocalDate;
 
 public class Main {
 
@@ -33,17 +34,31 @@ public class Main {
         ConsoleController consoleController = new ConsoleController(playerService, clubService, coachService, countryService);
 
 
-//        EntityManagerFactory factory = SessionConnector.createFactory(Player.class, Coach.class, Club.class, Country.class);
-//        EntityManager entityManager = factory.createEntityManager();
-//        EntityTransaction transaction = entityManager.getTransaction();
-//        transaction.begin();
+        EntityManagerFactory factory = SessionConnector.createFactory(Player.class, Coach.class, Club.class, Country.class);
+        EntityManager entityManager = factory.createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+
+//        Country belgium = new Country("Belgium", 30528,11303528, "BE");
 //
+//        countryService.saveCountry(belgium);
 //
-//        transaction.commit();
-//        entityManager.close();
+//        Club realMadrid = new Club("Real Madrid", LocalDate.of(1902,3,6), 13, belgium);
+//
+//        clubService.saveClub(realMadrid);
+//
+//        Player thibautCourtois =
+//                new Player(1, "Thibaut", "Courtois", LocalDate.of(1992,5,11),
+//                        0,0, realMadrid, belgium);
+//        playerService.savePlayer(thibautCourtois);
 
 
-        initiateData(playerService, clubService, countryService);
+
+        transaction.commit();
+        entityManager.close();
+
+
+        //initiateData(playerService, clubService, countryService);
 
         for (int i = 0; ; i++) {
             System.out.println("Enter action: ");
