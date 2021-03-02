@@ -1,7 +1,9 @@
 package dao;
 
 import model.Club;
+import model.Coach;
 import model.Country;
+import model.Player;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -29,7 +31,7 @@ public class CountryDao {
     }
 
     public static Country findCountry(String name) {
-        EntityManagerFactory factory = SessionConnector.createFactory(Country.class);
+        EntityManagerFactory factory = SessionConnector.createFactory(Player.class, Coach.class, Club.class, Country.class);
         EntityManager entityManager = factory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();

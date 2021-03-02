@@ -30,6 +30,24 @@ public class Country {
     @OneToMany(mappedBy = "country")
     private Set<Coach> coaches = new HashSet<>();
 
+    public void addClub(Club club) {
+        clubs.add(club);
+        club.setCountry(this);
+    }
+
+    public void addPlayer(Player player){
+        players.add(player);
+        player.setCountry(this);
+    }
+
+    public void addCoach(Coach coach){
+        coaches.add(coach);
+        coach.setCountry(this);
+    }
+
+
+
+
     public Country (String name, int surfaceArea, int population, String isoCode) {
         this.name = name;
         this.surfaceArea = surfaceArea;

@@ -20,7 +20,7 @@ public class Coach {
     private String lastName;
     @Column(name = "date_of_birth")
     private LocalDate dateOfBirth;
-    @OneToOne
+    @ManyToOne
     private Club club;
     @ManyToOne
     private Country country;

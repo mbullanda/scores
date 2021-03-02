@@ -12,7 +12,7 @@ import java.util.Set;
 @Entity
 @Data
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = {"players"})
+@EqualsAndHashCode(exclude = {"players", "coaches"})
 public class Club {
 
     @Id
@@ -26,8 +26,17 @@ public class Club {
     private Country country;
     @OneToMany(mappedBy = "club")
     private Set<Player> players = new HashSet<>();
-    @OneToOne(mappedBy = "club")
-    private Coach coach;
+    @OneToMany(mappedBy = "club")
+    private Set<Coach> coaches = new HashSet<>();
+
+    public void addPlayer(Player player){
+        players.add(player);
+        player.setClub(this);
+    }
+    public void addCoach(Coach coach){
+        coaches.add(coach);
+        coach.setClub(this);
+    }
 
     public Club (String name, LocalDate dateOfFoundation, int trophies, Country country){
         this.name = name;

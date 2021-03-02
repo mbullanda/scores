@@ -1,5 +1,8 @@
 package data;
 
+import dao.PlayerDao;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import model.Club;
 import model.Player;
 import service.PlayerService;
@@ -7,7 +10,8 @@ import service.PlayerService;
 import java.time.LocalDate;
 
 public class Players {
-    private PlayerService playerService;
+    PlayerService playerService = new PlayerService(new PlayerDao());
+
 
     public void initiatePlayers(){
         Player thibautCourtois =

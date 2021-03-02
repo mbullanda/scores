@@ -1,6 +1,9 @@
 package dao;
 
 import model.Club;
+import model.Coach;
+import model.Country;
+import model.Player;
 
 import javax.persistence.*;
 
@@ -16,6 +19,8 @@ public class ClubDao {
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
 
+        club.getCountry().addClub(club);
+
         entityManager.persist(club);
 
         System.out.println("Saving club: " + club);
@@ -25,7 +30,7 @@ public class ClubDao {
     }
 
     public static Club findClub(String name) {
-        EntityManagerFactory factory = SessionConnector.createFactory(Club.class);
+        EntityManagerFactory factory = SessionConnector.createFactory(Player.class, Coach.class, Club.class, Country.class);
         EntityManager entityManager = factory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();

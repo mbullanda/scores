@@ -1,12 +1,21 @@
 import controller.ConsoleController;
-import dao.ClubDao;
-import dao.CoachDao;
-import dao.CountryDao;
-import dao.PlayerDao;
+import dao.*;
+import data.Clubs;
+import data.Countries;
+import data.Players;
+import model.Club;
+import model.Coach;
+import model.Country;
+import model.Player;
+import org.hibernate.SessionFactory;
 import service.ClubService;
 import service.CoachService;
 import service.CountryService;
 import service.PlayerService;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 
 public class Main {
 
@@ -23,18 +32,40 @@ public class Main {
 
         ConsoleController consoleController = new ConsoleController(playerService, clubService, coachService, countryService);
 
+
+//        EntityManagerFactory factory = SessionConnector.createFactory(Player.class, Coach.class, Club.class, Country.class);
+//        EntityManager entityManager = factory.createEntityManager();
+//        EntityTransaction transaction = entityManager.getTransaction();
+//        transaction.begin();
+//
+//
+//        transaction.commit();
+//        entityManager.close();
+
+
+        initiateData(playerService, clubService, countryService);
+
         for (int i = 0; ; i++) {
             System.out.println("Enter action: ");
             System.out.println("1.Add new player.");
+            System.out.println("2.Display player");
             System.out.println("0.Exit");
             int number = consoleController.scanner().nextInt();
             if (number == 1) {
                 consoleController.savePlayer();
+            } else if (number == 2){
+                System.out.println("...");
             } else if (number == 1){
                 break;
             }
         }
 
+    }
+
+    public static void initiateData(PlayerService playerService, ClubService clubService, CountryService countryService) {
+        new Countries().initiateCountries();
+        new Clubs().initiateClubs();
+        new Players().initiatePlayers();
     }
 
 

@@ -1,19 +1,20 @@
 package data;
 
+import dao.CountryDao;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import model.Country;
 import service.CoachService;
 import service.CountryService;
 
 public class Countries {
-    private CountryService countryService;
-    public static Country spain;
-    public static Country belgium;
+    CountryService countryService = new CountryService(new CountryDao());
+    public static Country belgium = new Country("Belgium", 30528,11303528, "BE");
+    public static Country spain = new Country("Spain", 505944, 47100396, "ES");
 
     public void initiateCountries(){
-        spain = new Country("Spain", 505944, 47100396, "ES");
         countryService.saveCountry(spain);
         Country brazil = new Country("Brazil", 8515767, 210677000, "BR");
-        belgium = new Country("Belgium", 30528,11303528, "BE");
         countryService.saveCountry(belgium);
         Country france = new Country("France", 643801, 67022000, "FR");
         Country germany = new Country("Germany", 357578, 83019200, "DE");
