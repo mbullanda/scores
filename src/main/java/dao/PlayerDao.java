@@ -21,20 +21,25 @@ public class PlayerDao {
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
 
-
-
+        Player playerToSave = new Player();
+        playerToSave.setNumber(player.getNumber());
+        playerToSave.setFirstName(player.getFirstName());
+        playerToSave.setLastName(player.getLastName());
+        playerToSave.setDateOfBirth(player.getDateOfBirth());
+        playerToSave.setGoals(player.getGoals());
+        playerToSave.setAssists(player.getAssists());
 
         Country country = player.getCountry();
-        country.addPlayer(player);
+        country.addPlayer(playerToSave);
         Club club = player.getClub();
-        club.addPlayer(player);
+        club.addPlayer(playerToSave);
 
-        entityManager.persist(player);
+        entityManager.persist(playerToSave);
         entityManager.persist(club);
         entityManager.persist(country);
 
 
-        System.out.println("Saving player: " + player.getFirstName() + " " + player.getLastName());
+        System.out.println("Saving player: " + playerToSave.getFirstName() + " " + playerToSave.getLastName());
 
         transaction.commit();
         entityManager.close();

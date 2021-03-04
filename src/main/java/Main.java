@@ -58,7 +58,7 @@ public class Main {
         entityManager.close();
 
 
-        //initiateData(playerService, clubService, countryService);
+        initiateData(playerService, clubService, countryService);
 
         for (int i = 0; ; i++) {
             System.out.println("Enter action: ");

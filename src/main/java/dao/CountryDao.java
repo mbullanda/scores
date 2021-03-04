@@ -13,12 +13,15 @@ import javax.persistence.TypedQuery;
 public class CountryDao {
 
     public void saveCountry(Country country) {
-        EntityManagerFactory factory = SessionConnector.createFactory(Country.class);
+        EntityManagerFactory factory = SessionConnector.createFactory(Player.class, Coach.class, Club.class, Country.class);
         EntityManager entityManager = factory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
 
+
+
         entityManager.persist(country);
+
 
         System.out.println("Saving country: " + country);
 

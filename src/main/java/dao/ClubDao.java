@@ -14,7 +14,7 @@ public class ClubDao {
     }
 
     public void saveClub(Club club) {
-        EntityManagerFactory factory = SessionConnector.createFactory(Club.class);
+        EntityManagerFactory factory = SessionConnector.createFactory(Player.class, Coach.class, Club.class, Country.class);
         EntityManager entityManager = factory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
