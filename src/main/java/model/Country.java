@@ -3,6 +3,7 @@ package model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -12,6 +13,7 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode(exclude = {"clubs", "players", "coaches"})
+@ToString(exclude = {"clubs", "players", "coaches"})
 public class Country {
 
     @Id

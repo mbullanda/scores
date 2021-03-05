@@ -1,9 +1,6 @@
 package data;
 
 import dao.PlayerDao;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import model.Club;
 import model.Player;
 import service.PlayerService;
 

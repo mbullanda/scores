@@ -9,6 +9,7 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode(exclude = {"club", "country"})
+@ToString(exclude = {"club", "country"})
 public class Player {
 
     @Id

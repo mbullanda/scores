@@ -3,6 +3,7 @@ package model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -11,6 +12,7 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode(exclude = {"club", "country"})
+@ToString(exclude = {"club", "country"})
 public class Coach {
 
     @Id
