@@ -44,7 +44,7 @@ public class Main {
         entityManager.close();
 
 
-        initiateData();
+//        initiateData();
 
         for (int i = 0; ; i++) {
             System.out.println("Enter action: ");
