@@ -10,14 +10,19 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 
 public class CoachDao {
+    private EntityManagerFactory factory;
+
+    public CoachDao(EntityManagerFactory factory){
+        this.factory = factory;
+    }
+
     public void saveCoach(Coach coach) {
-        EntityManagerFactory factory = SessionConnector.createFactory(Player.class, Coach.class, Club.class, Country.class);
         EntityManager entityManager = factory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
 
-        coach.getCountry().addCoach(coach);
-        coach.getClub().addCoach(coach);
+//        coach.getCountry().addCoach(coach);
+//        coach.getClub().addCoach(coach); //do testów zamknięte
 
         entityManager.persist(coach);
 

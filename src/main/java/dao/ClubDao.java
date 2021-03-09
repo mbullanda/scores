@@ -8,18 +8,22 @@ import model.Player;
 import javax.persistence.*;
 
 public class ClubDao {
+    private EntityManagerFactory factory;
+
+    public ClubDao(EntityManagerFactory factory){
+        this.factory = factory;
+    }
 
     public boolean isClubPresent(Club club) {
         return false;
     }
 
     public void saveClub(Club club) {
-        EntityManagerFactory factory = SessionConnector.createFactory(Player.class, Coach.class, Club.class, Country.class);
         EntityManager entityManager = factory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
 
-        club.getCountry().addClub(club);
+        //club.getCountry().addClub(club); //do testów zamknięte
 
         entityManager.persist(club);
 
@@ -29,21 +33,20 @@ public class ClubDao {
         entityManager.close();
     }
 
-    public static Club findClub(String name) {
-        EntityManagerFactory factory = SessionConnector.createFactory(Player.class, Coach.class, Club.class, Country.class);
-        EntityManager entityManager = factory.createEntityManager();
-        EntityTransaction transaction = entityManager.getTransaction();
-        transaction.begin();
-
-        TypedQuery<Club> query = entityManager.createQuery("Select c from Club c where c.name = :name", Club.class);
-        query.setParameter("name", name);
-        Club club = query.getSingleResult();
-
-        transaction.commit();
-        entityManager.close();
-
-        return club;
-    }
+//    public static Club findClub(String name) {
+//        EntityManager entityManager = factory.createEntityManager();
+//        EntityTransaction transaction = entityManager.getTransaction();
+//        transaction.begin();
+//
+////        TypedQuery<Club> query = entityManager.createQuery("Select c from Club c where c.name = :name", Club.class);
+////        query.setParameter("name", name);
+////        Club club = query.getSingleResult();
+//
+//        transaction.commit();
+//        entityManager.close();
+//
+//        return club;
+//    }
 
 
 }

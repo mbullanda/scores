@@ -1,9 +1,6 @@
 package model;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -15,10 +12,12 @@ import java.util.Set;
 @NoArgsConstructor
 @EqualsAndHashCode(exclude = {"players", "coaches"})
 @ToString(exclude = {"players", "coaches"})
+@Builder
+@AllArgsConstructor
 public class Club {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     @Column(name = "date_of_foundation")
@@ -27,8 +26,10 @@ public class Club {
     @ManyToOne
     private Country country;
     @OneToMany(mappedBy = "club")
+    @Builder.Default
     private Set<Player> players = new HashSet<>();
     @OneToMany(mappedBy = "club")
+    @Builder.Default
     private Set<Coach> coaches = new HashSet<>();
 
     public void addPlayer(Player player){

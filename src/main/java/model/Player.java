@@ -10,10 +10,12 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @EqualsAndHashCode(exclude = {"club", "country"})
 @ToString(exclude = {"club", "country"})
+@Builder
+@AllArgsConstructor
 public class Player {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private int number;
     @Column(name = "first_name")

@@ -8,6 +8,7 @@ import model.Club;
 import model.Coach;
 import model.Country;
 import model.Player;
+import org.hibernate.cfg.Configuration;
 import service.ClubService;
 import service.CoachService;
 import service.CountryService;
@@ -20,10 +21,11 @@ import javax.persistence.EntityTransaction;
 public class Main {
 
     public static void main(String[] args) {
-        PlayerDao playerDao = new PlayerDao();
-        CoachDao coachDao = new CoachDao();
-        ClubDao clubDao = new ClubDao();
-        CountryDao countryDao = new CountryDao();
+        EntityManagerFactory entityManagerFactory = new Configuration().configure().buildSessionFactory();
+        PlayerDao playerDao = new PlayerDao(entityManagerFactory);
+        CoachDao coachDao = new CoachDao(entityManagerFactory);
+        ClubDao clubDao = new ClubDao(entityManagerFactory);
+        CountryDao countryDao = new CountryDao(entityManagerFactory);
 
         PlayerService playerService = new PlayerService(playerDao);
         CoachService coachService = new CoachService(coachDao);
@@ -44,7 +46,7 @@ public class Main {
         entityManager.close();
 
 
-//        initiateData();
+        initiateData();
 
         for (int i = 0; ; i++) {
             System.out.println("Enter action: ");
@@ -53,7 +55,7 @@ public class Main {
             System.out.println("0.Exit");
             int number = consoleController.scanner().nextInt();
             if (number == 1) {
-                consoleController.savePlayer();
+//                consoleController.savePlayer();
             } else if (number == 2){
                 System.out.println("...");
             } else if (number == 1){
@@ -66,8 +68,8 @@ public class Main {
     public static void initiateData() {
         new Countries().initiateCountries();
         new Clubs().initiateClubs();
-        new Players().initiatePlayers();
         new Coaches().initiateCoaches();
+        new Players().initiatePlayers();
     }
 
 

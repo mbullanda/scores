@@ -10,21 +10,29 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 
 public class PlayerDao {
+    private EntityManagerFactory factory;
+
+    public PlayerDao(EntityManagerFactory factory){
+        this.factory = factory;
+    }
+
     public boolean isPlayerPresent(Player player) {
-        //sprawdza czy piłkarz już istnieje
+//        if (player.getId() == null){
+//            return false;
+//        }
+//        return findPlayer(player.getId()) != null;
         return false;
     }
 
     public void savePlayer(Player player) {
-        EntityManagerFactory factory = SessionConnector.createFactory(Player.class, Coach.class, Club.class, Country.class);
         EntityManager entityManager = factory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
 
-        Country country = player.getCountry();
-        country.addPlayer(player);
-        Club club = player.getClub();
-        club.addPlayer(player);
+//        Country country = player.getCountry();
+//        country.addPlayer(player);
+//        Club club = player.getClub();
+//        club.addPlayer(player);  //do testów zamknięte
 
         entityManager.persist(player);
 //        entityManager.persist(club);
@@ -35,5 +43,18 @@ public class PlayerDao {
 
         transaction.commit();
         entityManager.close();
+    }
+
+    public Player findPlayer(Long id) {
+        EntityManager entityManager = factory.createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+
+        Player player = entityManager.find(Player.class, id);
+
+        transaction.commit();
+        entityManager.close();
+
+        return player;
     }
 }

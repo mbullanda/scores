@@ -1,9 +1,6 @@
 package model;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -13,10 +10,12 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @EqualsAndHashCode(exclude = {"club", "country"})
 @ToString(exclude = {"club", "country"})
+@Builder
+@AllArgsConstructor
 public class Coach {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "first_name")
     private String firstName;

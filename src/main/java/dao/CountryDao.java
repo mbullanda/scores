@@ -11,9 +11,13 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 
 public class CountryDao {
+    private EntityManagerFactory factory;
+
+    public CountryDao(EntityManagerFactory factory){
+        this.factory = factory;
+    }
 
     public void saveCountry(Country country) {
-        EntityManagerFactory factory = SessionConnector.createFactory(Player.class, Coach.class, Club.class, Country.class);
         EntityManager entityManager = factory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
@@ -33,20 +37,19 @@ public class CountryDao {
         return false;
     }
 
-    public static Country findCountry(String name) {
-        EntityManagerFactory factory = SessionConnector.createFactory(Player.class, Coach.class, Club.class, Country.class);
-        EntityManager entityManager = factory.createEntityManager();
-        EntityTransaction transaction = entityManager.getTransaction();
-        transaction.begin();
-
-        TypedQuery<Country> query = entityManager.createQuery("Select c from Country c where c.name = :name", Country.class);
-        query.setParameter("name", name);
-        Country country = query.getSingleResult();
-
-        transaction.commit();
-        entityManager.close();
-
-        return country;
-    }
+//    public static Country findCountry(String name) {
+//        EntityManager entityManager = factory.createEntityManager();
+//        EntityTransaction transaction = entityManager.getTransaction();
+//        transaction.begin();
+//
+//        TypedQuery<Country> query = entityManager.createQuery("Select c from Country c where c.name = :name", Country.class);
+//        query.setParameter("name", name);
+//        Country country = query.getSingleResult();
+//
+//        transaction.commit();
+//        entityManager.close();
+//
+//        return country;
+//    }
 
 }

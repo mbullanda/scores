@@ -1,9 +1,6 @@
 package model;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -14,10 +11,12 @@ import java.util.Set;
 @NoArgsConstructor
 @EqualsAndHashCode(exclude = {"clubs", "players", "coaches"})
 @ToString(exclude = {"clubs", "players", "coaches"})
+@Builder
+@AllArgsConstructor
 public class Country {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     @Column(name = "surface_area")
@@ -26,10 +25,13 @@ public class Country {
     @Column(name = "iso_code")
     private String isoCode;
     @OneToMany(mappedBy = "country")
+    @Builder.Default
     private Set<Club> clubs = new HashSet<>();
     @OneToMany(mappedBy = "country")
+    @Builder.Default
     private Set<Player> players = new HashSet<>();
     @OneToMany(mappedBy = "country")
+    @Builder.Default
     private Set<Coach> coaches = new HashSet<>();
 
     public void addClub(Club club) {
