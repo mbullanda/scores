@@ -15,7 +15,10 @@ public class ClubDao {
     }
 
     public boolean isClubPresent(Club club) {
-        return false;
+        if (club.getId() == null){
+            return false;
+        }
+        return findClub(club.getId()) != null;
     }
 
     public void saveClub(Club club) {
@@ -33,20 +36,18 @@ public class ClubDao {
         entityManager.close();
     }
 
-//    public static Club findClub(String name) {
-//        EntityManager entityManager = factory.createEntityManager();
-//        EntityTransaction transaction = entityManager.getTransaction();
-//        transaction.begin();
-//
-////        TypedQuery<Club> query = entityManager.createQuery("Select c from Club c where c.name = :name", Club.class);
-////        query.setParameter("name", name);
-////        Club club = query.getSingleResult();
-//
-//        transaction.commit();
-//        entityManager.close();
-//
-//        return club;
-//    }
+    public Club findClub(Long id) {
+        EntityManager entityManager = factory.createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+
+        Club club = entityManager.find(Club.class, id);
+
+        transaction.commit();
+        entityManager.close();
+
+        return club;
+    }
 
 
 }

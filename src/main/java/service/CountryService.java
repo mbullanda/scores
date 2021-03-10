@@ -16,4 +16,8 @@ public class CountryService {
         }
     }
 
+    public Country findCountry(Long id){
+        return countryDao.findCountry(id);
+    }
+
 }

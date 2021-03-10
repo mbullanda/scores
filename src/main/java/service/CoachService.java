@@ -16,4 +16,8 @@ public class CoachService {
             coachDao.saveCoach(coach);
         }
     }
+
+    public Coach findCoach(Long id){
+        return coachDao.findCoach(id);
+    }
 }

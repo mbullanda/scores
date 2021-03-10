@@ -34,22 +34,23 @@ public class CountryDao {
     }
 
     public boolean isCountryPresent(Country country) {
-        return false;
+        if (country.getId() == null){
+            return false;
+        }
+        return findCountry(country.getId()) != null;
     }
 
-//    public static Country findCountry(String name) {
-//        EntityManager entityManager = factory.createEntityManager();
-//        EntityTransaction transaction = entityManager.getTransaction();
-//        transaction.begin();
-//
-//        TypedQuery<Country> query = entityManager.createQuery("Select c from Country c where c.name = :name", Country.class);
-//        query.setParameter("name", name);
-//        Country country = query.getSingleResult();
-//
-//        transaction.commit();
-//        entityManager.close();
-//
-//        return country;
-//    }
+    public Country findCountry(Long id) {
+        EntityManager entityManager = factory.createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+
+        Country country = entityManager.find(Country.class, id);
+
+        transaction.commit();
+        entityManager.close();
+
+        return country;
+    }
 
 }

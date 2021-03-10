@@ -1,4 +1,4 @@
-package data;
+package dbFiller;
 
 import dao.CoachDao;
 import model.Coach;

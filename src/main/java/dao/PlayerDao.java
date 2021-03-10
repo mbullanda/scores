@@ -17,11 +17,10 @@ public class PlayerDao {
     }
 
     public boolean isPlayerPresent(Player player) {
-//        if (player.getId() == null){
-//            return false;
-//        }
-//        return findPlayer(player.getId()) != null;
-        return false;
+        if (player.getId() == null){
+            return false;
+        }
+        return findPlayer(player.getId()) != null;
     }
 
     public void savePlayer(Player player) {

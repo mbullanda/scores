@@ -15,4 +15,9 @@ public class PlayerService {
             playerDao.savePlayer(player);
         }
     }
+
+    public Player findPlayer(Long id){
+        return playerDao.findPlayer(id);
+    }
+
 }

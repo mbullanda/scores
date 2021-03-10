@@ -31,9 +31,23 @@ public class CoachDao {
         transaction.commit();
         entityManager.close();
     }
+    public Coach findCoach(Long id) {
+        EntityManager entityManager = factory.createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+
+        Coach coach = entityManager.find(Coach.class, id);
+
+        transaction.commit();
+        entityManager.close();
+
+        return coach;
+    }
 
     public boolean isCoachPresent(Coach coach) {
-        //sprawdza czy istnieje już taki coach
-        return false;
+        if (coach.getId() == null){
+            return false;
+        }
+        return findCoach(coach.getId()) != null;
     }
 }

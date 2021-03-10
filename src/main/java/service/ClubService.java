@@ -17,4 +17,8 @@ public class ClubService {
         }
     }
 
+    public Club findClub(Long id){
+        return clubDao.findClub(id);
+    }
+
 }

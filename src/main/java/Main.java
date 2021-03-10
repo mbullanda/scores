@@ -1,22 +1,13 @@
 import controller.ConsoleController;
 import dao.*;
-import data.Clubs;
-import data.Coaches;
-import data.Countries;
-import data.Players;
-import model.Club;
-import model.Coach;
-import model.Country;
-import model.Player;
+import dbFiller.*;
 import org.hibernate.cfg.Configuration;
 import service.ClubService;
 import service.CoachService;
 import service.CountryService;
 import service.PlayerService;
 
-import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
 
 public class Main {
 
@@ -34,19 +25,7 @@ public class Main {
 
         ConsoleController consoleController = new ConsoleController(playerService, clubService, coachService, countryService);
 
-
-        EntityManagerFactory factory = SessionConnector.createFactory(Player.class, Coach.class, Club.class, Country.class);
-        EntityManager entityManager = factory.createEntityManager();
-        EntityTransaction transaction = entityManager.getTransaction();
-        transaction.begin();
-
-
-
-        transaction.commit();
-        entityManager.close();
-
-
-        initiateData();
+        //new DbFiller().dbFiller();
 
         for (int i = 0; ; i++) {
             System.out.println("Enter action: ");
@@ -65,12 +44,12 @@ public class Main {
 
     }
 
-    public static void initiateData() {
-        new Countries().initiateCountries();
-        new Clubs().initiateClubs();
-        new Coaches().initiateCoaches();
-        new Players().initiatePlayers();
-    }
+//    public static void initiateData() {
+//        new Countries().initiateCountries();
+//        new Clubs().initiateClubs();
+//        new Coaches().initiateCoaches();
+//        new Players().initiatePlayers();
+//    }
 
 
 
