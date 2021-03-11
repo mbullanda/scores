@@ -16,8 +16,12 @@ public class PlayerService {
         }
     }
 
-    public Player findPlayer(Long id){
-        return playerDao.findPlayer(id);
+    public Player findPlayerById(Long id){
+        return playerDao.findPlayerById(id);
+    }
+
+    public void addGoal(){
+        playerDao.addGoal();
     }
 
 }

@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.Period;
 
 @Entity
 @Data
@@ -31,16 +32,17 @@ public class Player {
     @ManyToOne
     private Country country;
 
+    @Override
+    public String toString() {
+        return  number + ". " + firstName + " " + lastName +
+                " (" + getAge() +
+                ", " + country.getIsoCode() +
+                "). Goals: " + goals +
+                ", assists: " + assists;
+    }
 
-    public Player(int number, String firstName, String lastName, LocalDate parsedDate, int goals, int assists, Club club, Country country) {
-        this.number = number;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.dateOfBirth = parsedDate;
-        this.goals = goals;
-        this.assists = assists;
-        this.club = club;
-        this.country = country;
-
+    public int getAge(){
+        return Period.between(getDateOfBirth(), LocalDate.now()).getYears();
     }
 }
+

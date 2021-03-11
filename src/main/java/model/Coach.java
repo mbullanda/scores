@@ -28,13 +28,4 @@ public class Coach {
     @ManyToOne
     private Country country;
 
-    public Coach (String firstName, String lastName, LocalDate dateOfBirth, Club club, Country country){
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.dateOfBirth = dateOfBirth;
-        this.club = club;
-        this.country = country;
-
-
-    }
 }

@@ -25,10 +25,10 @@ public class Club {
     private int trophies;
     @ManyToOne
     private Country country;
-    @OneToMany(mappedBy = "club")
+    @OneToMany(mappedBy = "club", fetch = FetchType.EAGER)
     @Builder.Default
     private Set<Player> players = new HashSet<>();
-    @OneToMany(mappedBy = "club")
+    @OneToMany(mappedBy = "club", fetch = FetchType.EAGER)
     @Builder.Default
     private Set<Coach> coaches = new HashSet<>();
 
@@ -39,13 +39,6 @@ public class Club {
     public void addCoach(Coach coach){
         coaches.add(coach);
         coach.setClub(this);
-    }
-
-    public Club (String name, LocalDate dateOfFoundation, int trophies, Country country){
-        this.name = name;
-        this.dateOfFoundation = dateOfFoundation;
-        this.trophies = trophies;
-        this.country = country;
     }
 
 

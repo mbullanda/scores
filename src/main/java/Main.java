@@ -8,6 +8,7 @@ import service.CountryService;
 import service.PlayerService;
 
 import javax.persistence.EntityManagerFactory;
+import java.util.Scanner;
 
 public class Main {
 
@@ -25,31 +26,37 @@ public class Main {
 
         ConsoleController consoleController = new ConsoleController(playerService, clubService, coachService, countryService);
 
-        //new DbFiller().dbFiller();
+       // DbFiller.dbFiller(playerService,coachService,clubService,countryService);
+//        initiateData();
 
         for (int i = 0; ; i++) {
+            Scanner scanner = new Scanner(System.in);
             System.out.println("Enter action: ");
             System.out.println("1.Add new player.");
             System.out.println("2.Display player");
             System.out.println("0.Exit");
-            int number = consoleController.scanner().nextInt();
+            int number = scanner.nextInt();
             if (number == 1) {
-//                consoleController.savePlayer();
+                consoleController.savePlayer();
             } else if (number == 2){
-                System.out.println("...");
-            } else if (number == 1){
+                System.out.print("Enter club id: ");
+                long clubId = scanner.nextLong();
+                consoleController.getPLayersByClub(clubId);
+            } else if (number == 3){
+                playerService.addGoal();
+            } else if (number == 0){
                 break;
             }
         }
 
     }
 
-//    public static void initiateData() {
-//        new Countries().initiateCountries();
-//        new Clubs().initiateClubs();
-//        new Coaches().initiateCoaches();
-//        new Players().initiatePlayers();
-//    }
+    public static void initiateData() {
+        new Countries().initiateCountries();
+        new Clubs().initiateClubs();
+        new Coaches().initiateCoaches();
+        new Players().initiatePlayers();
+    }
 
 
 

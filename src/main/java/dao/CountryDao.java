@@ -1,14 +1,10 @@
 package dao;
 
-import model.Club;
-import model.Coach;
 import model.Country;
-import model.Player;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
-import javax.persistence.TypedQuery;
 
 public class CountryDao {
     private EntityManagerFactory factory;
@@ -22,10 +18,7 @@ public class CountryDao {
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
 
-
-
         entityManager.persist(country);
-
 
         System.out.println("Saving country: " + country);
 
@@ -37,10 +30,10 @@ public class CountryDao {
         if (country.getId() == null){
             return false;
         }
-        return findCountry(country.getId()) != null;
+        return findCountryById(country.getId()) != null;
     }
 
-    public Country findCountry(Long id) {
+    public Country findCountryById(Long id) {
         EntityManager entityManager = factory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();

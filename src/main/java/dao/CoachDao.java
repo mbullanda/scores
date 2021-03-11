@@ -3,7 +3,6 @@ package dao;
 import model.Club;
 import model.Coach;
 import model.Country;
-import model.Player;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -21,17 +20,24 @@ public class CoachDao {
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
 
-//        coach.getCountry().addCoach(coach);
-//        coach.getClub().addCoach(coach); //do testów zamknięte
-
         entityManager.persist(coach);
 
-        System.out.println("Saving coach: " + coach);
+        Country country = coach.getCountry();
+        country.addCoach(coach);
+        Club club = coach.getClub();
+        club.addCoach(coach);
+
+
+
+//        entityManager.persist(country);
+//        entityManager.persist(club);
+
+        System.out.println("Saving coach: " + coach.getFirstName() + " " + coach.getLastName());
 
         transaction.commit();
         entityManager.close();
     }
-    public Coach findCoach(Long id) {
+    public Coach findCoachById(Long id) {
         EntityManager entityManager = factory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
@@ -48,6 +54,6 @@ public class CoachDao {
         if (coach.getId() == null){
             return false;
         }
-        return findCoach(coach.getId()) != null;
+        return findCoachById(coach.getId()) != null;
     }
 }

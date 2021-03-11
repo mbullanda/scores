@@ -17,7 +17,7 @@ public class CoachService {
         }
     }
 
-    public Coach findCoach(Long id){
-        return coachDao.findCoach(id);
+    public Coach findCoachById(Long id){
+        return coachDao.findCoachById(id);
     }
 }

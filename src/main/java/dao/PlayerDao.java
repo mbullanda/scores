@@ -1,13 +1,11 @@
 package dao;
 
 import model.Club;
-import model.Coach;
 import model.Country;
 import model.Player;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
+import javax.persistence.*;
+import java.util.List;
 
 public class PlayerDao {
     private EntityManagerFactory factory;
@@ -20,7 +18,7 @@ public class PlayerDao {
         if (player.getId() == null){
             return false;
         }
-        return findPlayer(player.getId()) != null;
+        return findPlayerById(player.getId()) != null;
     }
 
     public void savePlayer(Player player) {
@@ -28,15 +26,15 @@ public class PlayerDao {
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
 
-//        Country country = player.getCountry();
-//        country.addPlayer(player);
-//        Club club = player.getClub();
-//        club.addPlayer(player);  //do testów zamknięte
-
         entityManager.persist(player);
-//        entityManager.persist(club);
-//        entityManager.persist(country);
 
+        Country country = player.getCountry();
+        country.addPlayer(player);
+        Club club = player.getClub();
+        club.addPlayer(player);
+
+//        entityManager.persist(country);
+//        entityManager.persist(club);
 
         System.out.println("Saving player: " + player.getFirstName() + " " + player.getLastName());
 
@@ -44,7 +42,7 @@ public class PlayerDao {
         entityManager.close();
     }
 
-    public Player findPlayer(Long id) {
+    public Player findPlayerById(Long id) {
         EntityManager entityManager = factory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
@@ -55,5 +53,30 @@ public class PlayerDao {
         entityManager.close();
 
         return player;
+    }
+
+    public void addGoal(){
+        EntityManager entityManager = factory.createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+
+        TypedQuery<Player> query = entityManager.createQuery
+                ("select distinct p form Club c " +
+                        "inner join c.players p" +
+                        "where p.number = 9 and c_id = 1", Player.class);
+
+        //TypedQuery<User> query = entityManager.createQuery("select distinct u from User u " +
+        //                "inner join u.phones p where p.name = 'Samsung'", User.class);
+
+        Player singleResult = query.getSingleResult();
+        System.out.println("singleResult = " + singleResult);
+
+//        TypedQuery<Player> from_player = entityManager.createQuery("from Player p where p.number = 1", Player.class);
+//        List<Player> resultList = from_player.getResultList();
+//        resultList.forEach(System.out::println);
+
+
+        transaction.commit();
+        entityManager.close();
     }
 }

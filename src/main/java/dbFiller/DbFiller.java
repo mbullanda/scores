@@ -1,14 +1,9 @@
 package dbFiller;
 
-import dao.ClubDao;
-import dao.CoachDao;
-import dao.CountryDao;
-import dao.PlayerDao;
 import model.Club;
 import model.Coach;
 import model.Country;
 import model.Player;
-import org.hibernate.cfg.Configuration;
 import service.ClubService;
 import service.CoachService;
 import service.CountryService;
@@ -17,12 +12,8 @@ import service.PlayerService;
 import java.time.LocalDate;
 
 public class DbFiller {
-    ClubService clubService = new ClubService(new ClubDao(new Configuration().configure().buildSessionFactory()));
-    CountryService countryService = new CountryService(new CountryDao(new Configuration().configure().buildSessionFactory()));
-    CoachService coachService = new CoachService(new CoachDao(new Configuration().configure().buildSessionFactory()));
-    PlayerService playerService = new PlayerService(new PlayerDao(new Configuration().configure().buildSessionFactory()));
 
-    public void dbFiller(){
+    public static void dbFiller(PlayerService playerService, CoachService coachService, ClubService clubService, CountryService countryService){
         Country belgium = Country.builder()
                 .name("Belgium")
                 .isoCode("BE")
@@ -99,25 +90,25 @@ public class DbFiller {
                 .name("Real Madrid")
                 .dateOfFoundation(LocalDate.of(1902,3,6))
                 .trophies(13)
-                .country(countryService.findCountry(1L))
+                .country(countryService.findCountryById(1L))
                 .build();
         Club fcBarcelona = Club.builder()
                 .name("FC Barcelona")
                 .dateOfFoundation(LocalDate.of(1899, 11,29))
                 .trophies(5)
-                .country(countryService.findCountry(1L))
+                .country(countryService.findCountryById(1L))
                 .build();
         Club interMilan = Club.builder()
                 .name("Inter Milan")
                 .dateOfFoundation(LocalDate.of(1908,3,9))
                 .trophies(3)
-                .country(countryService.findCountry(9L))
+                .country(countryService.findCountryById(9L))
                 .build();
         Club juventusFC = Club.builder()
                 .name("Juventus FC")
                 .dateOfFoundation(LocalDate.of(1897, 11, 1))
                 .trophies(2)
-                .country(countryService.findCountry(9L))
+                .country(countryService.findCountryById(9L))
                 .build();
 
         clubService.saveClub(realMadrid);
@@ -129,29 +120,29 @@ public class DbFiller {
                 .firstName("Zinedine")
                 .lastName("Zidane")
                 .dateOfBirth(LocalDate.of(1972, 6,23))
-                .club(clubService.findClub(1L))
-                .country(countryService.findCountry(4L))
+                .club(clubService.findClubById(1L))
+                .country(countryService.findCountryById(4L))
                 .build();
         Coach ronaldKoeman = Coach.builder()
                 .firstName("Ronald")
                 .lastName("Koeman")
                 .dateOfBirth(LocalDate.of(1963,3,21))
-                .club(clubService.findClub(2L))
-                .country(countryService.findCountry(10L))
+                .club(clubService.findClubById(2L))
+                .country(countryService.findCountryById(10L))
                 .build();
         Coach andreaPirlo = Coach.builder()
                 .firstName("Andrea")
                 .lastName("Pirlo")
                 .dateOfBirth(LocalDate.of(1979,5,19))
-                .club(clubService.findClub(4L))
-                .country(countryService.findCountry(9L))
+                .club(clubService.findClubById(4L))
+                .country(countryService.findCountryById(9L))
                 .build();
         Coach antonioConte = Coach.builder()
                 .firstName("Antonio")
                 .lastName("Conte")
                 .dateOfBirth(LocalDate.of(1969, 7, 31))
-                .club(clubService.findClub(3L))
-                .country(countryService.findCountry(9L))
+                .club(clubService.findClubById(3L))
+                .country(countryService.findCountryById(9L))
                 .build();
 
         coachService.saveCoach(zinedineZidane);
@@ -166,8 +157,8 @@ public class DbFiller {
                 .dateOfBirth(LocalDate.of(1992,5,11))
                 .goals(0)
                 .assists(0)
-                .country(countryService.findCountry(3L))
-                .club(clubService.findClub(1L))
+                .country(countryService.findCountryById(3L))
+                .club(clubService.findClubById(1L))
                 .build();
 
         playerService.savePlayer(thibautCourtois);

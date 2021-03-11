@@ -1,11 +1,13 @@
 package dao;
 
 import model.Club;
-import model.Coach;
 import model.Country;
 import model.Player;
 
 import javax.persistence.*;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Set;
 
 public class ClubDao {
     private EntityManagerFactory factory;
@@ -18,25 +20,34 @@ public class ClubDao {
         if (club.getId() == null){
             return false;
         }
-        return findClub(club.getId()) != null;
+        return findClubById(club.getId()) != null;
     }
 
     public void saveClub(Club club) {
+        Country country = club.getCountry();
+        country.addClub(club);
+
         EntityManager entityManager = factory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
 
-        //club.getCountry().addClub(club); //do testów zamknięte
-
         entityManager.persist(club);
 
-        System.out.println("Saving club: " + club);
+
+        System.out.println("club.toString() = " + club.toString());
+        System.out.println("country.toString() = " + country.toString());
+
+
+
+//        entityManager.persist(country);
+
+        System.out.println("Saving club: " + club.getName());
 
         transaction.commit();
         entityManager.close();
     }
 
-    public Club findClub(Long id) {
+    public Club findClubById(Long id) {
         EntityManager entityManager = factory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
@@ -47,6 +58,26 @@ public class ClubDao {
         entityManager.close();
 
         return club;
+    }
+
+    public Set<Player> getPlayersByClub(Long clubId){
+        EntityManager entityManager = factory.createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+
+        Club club = entityManager.find(Club.class, clubId);
+
+        Set<Player> players = club.getPlayers();
+
+        players.stream()
+                .sorted(Comparator.comparing(s -> s.getNumber()))
+                .forEach(System.out::println);
+
+
+        transaction.commit();
+        entityManager.close();
+
+        return players;
     }
 
 

@@ -1,7 +1,5 @@
 package controller;
 
-import dao.ClubDao;
-import dao.CountryDao;
 import lombok.AllArgsConstructor;
 import model.Club;
 import model.Coach;
@@ -27,29 +25,45 @@ public class ConsoleController {
         return new Scanner(System.in);
     }
 
-//    public void savePlayer(){
-//        System.out.print("Enter number: ");
-//        int number = scanner().nextInt();
-//        System.out.print("Enter first name: ");
-//        String firstName = scanner().nextLine();
-//        System.out.print("Enter last name: ");
-//        String lastName = scanner().nextLine();
-//        System.out.print("Enter date of birth (yyyyMMdd): ");
-//        String dateOfBirth = scanner().nextLine();
-//        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMdd");
-//        LocalDate parsedDate = LocalDate.parse(dateOfBirth, dateTimeFormatter);
-//        System.out.print("Enter goals: ");
-//        int goals = scanner().nextInt();
-//        System.out.println("Enter assists: ");
-//        int assists = scanner().nextInt();
-//        System.out.print("Enter club name: ");
-//        String clubName = scanner().nextLine();
-////        Club club = ClubDao.findClub(clubName);
-//        System.out.print("Enter country name: ");
-//        String countryName = scanner().nextLine();
-////        Country country = CountryDao.findCountry(countryName);
-//        playerService.savePlayer(new Player(number,firstName,lastName,parsedDate,goals,assists,club,country));
-//    }
+    public void savePlayer(){
+        System.out.print("Enter number: ");
+        int number = scanner().nextInt();
+        System.out.print("Enter first name: ");
+        String firstName = scanner().nextLine();
+        System.out.print("Enter last name: ");
+        String lastName = scanner().nextLine();
+        System.out.print("Enter date of birth (yyyyMMdd): ");
+        String dateOfBirth = scanner().nextLine();
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+        LocalDate parsedDate = LocalDate.parse(dateOfBirth, dateTimeFormatter);
+        System.out.print("Enter goals: ");
+        int goals = scanner().nextInt();
+        System.out.print("Enter assists: ");
+        int assists = scanner().nextInt();
+        System.out.print("Enter club id: ");
+        long clubId = scanner().nextLong();
+        Club club = clubService.findClubById(clubId);
+        System.out.print("Enter country id: ");
+        long countryId = scanner().nextLong();
+        Country country = countryService.findCountryById(countryId);
+        Player player = Player.builder()
+                .number(number)
+                .firstName(firstName)
+                .lastName(lastName)
+                .dateOfBirth(parsedDate)
+                .assists(assists)
+                .goals(goals)
+                .club(club)
+                .country(country)
+                .build();
+        playerService.savePlayer(player);
+    }
+
+    public void getPLayersByClub(Long clubId){
+        clubService.getPlayersByClub(clubId);
+    }
+
+
     public void saveCoach(){
         coachService.saveCoach(new Coach());
     }

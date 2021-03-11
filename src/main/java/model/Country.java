@@ -24,13 +24,13 @@ public class Country {
     private int population;
     @Column(name = "iso_code")
     private String isoCode;
-    @OneToMany(mappedBy = "country")
+    @OneToMany(mappedBy = "country", fetch = FetchType.EAGER)
     @Builder.Default
     private Set<Club> clubs = new HashSet<>();
-    @OneToMany(mappedBy = "country")
+    @OneToMany(mappedBy = "country", fetch = FetchType.EAGER)
     @Builder.Default
     private Set<Player> players = new HashSet<>();
-    @OneToMany(mappedBy = "country")
+    @OneToMany(mappedBy = "country", fetch = FetchType.EAGER)
     @Builder.Default
     private Set<Coach> coaches = new HashSet<>();
 
@@ -49,14 +49,5 @@ public class Country {
         coach.setCountry(this);
     }
 
-
-
-
-    public Country (String name, int surfaceArea, int population, String isoCode) {
-        this.name = name;
-        this.surfaceArea = surfaceArea;
-        this.population = population;
-        this.isoCode = isoCode;
-    }
 
 }
