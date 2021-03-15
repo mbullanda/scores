@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.Period;
 
 @Entity
 @Data
@@ -28,4 +29,12 @@ public class Coach {
     @ManyToOne
     private Country country;
 
+    @Override
+    public String toString() {
+        return firstName + " " + lastName + " (" + getAge() + ", " + country.getIsoCode() +"), " + club.getName();
+    }
+
+    private int getAge() {
+        return Period.between(getDateOfBirth(), LocalDate.now()).getYears();
+    }
 }

@@ -61,12 +61,13 @@ public class PlayerDao {
         transaction.begin();
 
         TypedQuery<Player> query = entityManager.createQuery
-                ("select distinct p form Club c " +
-                        "inner join c.players p" +
-                        "where p.number = 9 and c_id = 1", Player.class);
+                ("select p form Player p where p.id = :number", Player.class);
 
+        query.setParameter("number", 1);
         //TypedQuery<User> query = entityManager.createQuery("select distinct u from User u " +
         //                "inner join u.phones p where p.name = 'Samsung'", User.class);
+
+        //select d from Department d where d.date >= :first AND d.date <= :last
 
         Player singleResult = query.getSingleResult();
         System.out.println("singleResult = " + singleResult);

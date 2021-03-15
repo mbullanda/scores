@@ -20,4 +20,8 @@ public class CountryService {
         return countryDao.findCountryById(id);
     }
 
+    public void displayClubsInCountry(Long countryId){
+        countryDao.displayClubsInCountry(countryId);
+    }
+
 }

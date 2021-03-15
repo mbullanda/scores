@@ -7,6 +7,7 @@ import model.Country;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
+import java.util.Set;
 
 public class CoachDao {
     private EntityManagerFactory factory;
@@ -56,4 +57,22 @@ public class CoachDao {
         }
         return findCoachById(coach.getId()) != null;
     }
+
+    public void displayCoachesByCountryId(Long id){
+        EntityManager entityManager = factory.createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+
+        Country country = entityManager.find(Country.class, id);
+
+        Set<Coach> coaches = country.getCoaches();
+
+        for (Coach coach : coaches) {
+            System.out.println(coach.toString());
+        }
+
+        transaction.commit();
+        entityManager.close();
+    }
+
 }

@@ -20,4 +20,8 @@ public class CoachService {
     public Coach findCoachById(Long id){
         return coachDao.findCoachById(id);
     }
+
+    public void displayCoachesByCountryId(Long id){
+        coachDao.displayCoachesByCountryId(id);
+    }
 }

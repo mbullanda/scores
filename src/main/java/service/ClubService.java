@@ -29,11 +29,7 @@ public class ClubService {
 
     public void getPlayersByClub(Long clubId){
         if (clubDao.findClubById(clubId) != null) {
-            Set<Player> playersByClub = clubDao.getPlayersByClub(clubId);
-//            playersByClub.stream()
-//                    .sorted(Comparator.comparing(s -> s.getNumber()))
-//                    .forEach(System.out::println);
-
+            clubDao.getPlayersByClub(clubId);
         } else {
             System.out.println("Club doesn't exists!");
         }

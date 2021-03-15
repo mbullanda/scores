@@ -1,10 +1,13 @@
 package dao;
 
+import model.Club;
 import model.Country;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
+import java.util.Comparator;
+import java.util.Set;
 
 public class CountryDao {
     private EntityManagerFactory factory;
@@ -46,4 +49,21 @@ public class CountryDao {
         return country;
     }
 
+    public void displayClubsInCountry(Long countryId) {
+        EntityManager entityManager = factory.createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+
+        Country country = entityManager.find(Country.class, countryId);
+
+        Set<Club> clubs = country.getClubs();
+
+        for (Club c: clubs){
+            System.out.println(c.getName() + ", players in squad: " + c.getPlayers().size() + ", trophies: "
+                    + c.getTrophies());
+        }
+
+        transaction.commit();
+        entityManager.close();
+    }
 }
