@@ -5,7 +5,9 @@ import model.Country;
 import model.Player;
 
 import javax.persistence.*;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class PlayerDao {
     private EntityManagerFactory factory;
@@ -55,29 +57,47 @@ public class PlayerDao {
         return player;
     }
 
-    public void addGoal(){
+    public void addGoal(int number, Long clubId){
         EntityManager entityManager = factory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
 
-        TypedQuery<Player> query = entityManager.createQuery
-                ("select p form Player p where p.id = :number", Player.class);
+        String string = "from Player p where p.number = :number";
 
-        query.setParameter("number", 1);
-        //TypedQuery<User> query = entityManager.createQuery("select distinct u from User u " +
-        //                "inner join u.phones p where p.name = 'Samsung'", User.class);
+        TypedQuery<Player> query = entityManager.createQuery(string, Player.class);
+        query.setParameter("number", number);
 
-        //select d from Department d where d.date >= :first AND d.date <= :last
+        List<Player> resultList = query.getResultList();
 
-        Player singleResult = query.getSingleResult();
-        System.out.println("singleResult = " + singleResult);
-
-//        TypedQuery<Player> from_player = entityManager.createQuery("from Player p where p.number = 1", Player.class);
-//        List<Player> resultList = from_player.getResultList();
-//        resultList.forEach(System.out::println);
-
+        for (Player p: resultList){
+            if (p.getClub().getId() == clubId){
+                p.setGoals(p.getGoals() + 1);
+            }
+        }
 
         transaction.commit();
         entityManager.close();
     }
+
+    public void displayBestScorers(){
+        EntityManager entityManager = factory.createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+
+        TypedQuery<Player> playerTypedQuery = entityManager.createQuery("from Player", Player.class);
+
+        List<Player> collect = playerTypedQuery.getResultList().stream()
+                .sorted(Comparator.comparing(g -> g.getGoals(), Comparator.reverseOrder()))
+                .collect(Collectors.toList());
+
+        for (int i = 0; i < collect.size(); i++){
+            Player player = collect.get(i);
+            System.out.println((i + 1) + ". " + player.getFirstName() + " " + player.getLastName() +
+                    " (" + player.getClub().getName() + ") :  " + player.getGoals() + " goals.");
+        }
+
+        transaction.commit();
+        entityManager.close();
+    }
+
 }

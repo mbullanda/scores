@@ -59,11 +59,6 @@ public class ConsoleController {
         playerService.savePlayer(player);
     }
 
-    public void getPLayersByClub(Long clubId){
-        clubService.getPlayersByClub(clubId);
-    }
-
-
     public void saveCoach(){
         coachService.saveCoach(new Coach());
     }
@@ -72,6 +67,47 @@ public class ConsoleController {
     }
     public void saveCountry(){
         countryService.saveCountry(new Country());
+    }
+
+    public void mainMenu(ConsoleController consoleController){
+        for (int i = 0; ; i++) {
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("Enter action: ");
+            System.out.println("1.Add new player");
+            System.out.println("2.Display players in club");
+            System.out.println("3.Add goals xD");
+            System.out.println("4.Display clubs in country");
+            System.out.println("5.Display coaches by country");
+            System.out.println("6.Display best scorers");
+            System.out.println();
+            System.out.println("0.Exit");
+            int number = scanner.nextInt();
+            if (number == 1) {
+                consoleController.savePlayer();
+            } else if (number == 2){
+                System.out.print("Enter club id: ");
+                long clubId = scanner.nextLong();
+                clubService.getPlayersByClub(clubId);
+            } else if (number == 3){
+                System.out.print("Enter player number:");
+                int playerNumber = scanner.nextInt();
+                System.out.print("Enter club id:");
+                long clubId = scanner.nextLong();
+                playerService.addGoal(playerNumber,clubId);
+            } else if (number == 4){
+                System.out.print("Enter country id:");
+                long countryId = scanner.nextLong();
+                countryService.displayClubsInCountry(countryId);
+            } else if (number == 5){
+                System.out.println("Enter country id:");
+                long countryId = scanner.nextLong();
+                coachService.displayCoachesByCountryId(countryId);
+            } else if (number == 6){
+                playerService.displayBestScorers();
+            } else if (number == 0){
+                break;
+            }
+        }
     }
 
 }

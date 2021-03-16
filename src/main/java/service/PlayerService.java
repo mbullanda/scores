@@ -20,8 +20,12 @@ public class PlayerService {
         return playerDao.findPlayerById(id);
     }
 
-    public void addGoal(){
-        playerDao.addGoal();
+    public void addGoal(int number, Long clubId){
+        playerDao.addGoal(number,clubId);
+    }
+
+    public void displayBestScorers(){
+        playerDao.displayBestScorers();
     }
 
 }
