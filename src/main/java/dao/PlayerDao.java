@@ -86,12 +86,12 @@ public class PlayerDao {
 
         TypedQuery<Player> playerTypedQuery = entityManager.createQuery("from Player", Player.class);
 
-        List<Player> collect = playerTypedQuery.getResultList().stream()
+        List<Player> players = playerTypedQuery.getResultList().stream()
                 .sorted(Comparator.comparing(g -> g.getGoals(), Comparator.reverseOrder()))
                 .collect(Collectors.toList());
 
-        for (int i = 0; i < collect.size(); i++){
-            Player player = collect.get(i);
+        for (int i = 0; i < players.size(); i++){
+            Player player = players.get(i);
             System.out.println((i + 1) + ". " + player.getFirstName() + " " + player.getLastName() +
                     " (" + player.getClub().getName() + ") :  " + player.getGoals() + " goals.");
         }
@@ -99,5 +99,28 @@ public class PlayerDao {
         transaction.commit();
         entityManager.close();
     }
+
+    public void displayBestAssistants(){
+        EntityManager entityManager = factory.createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+
+        TypedQuery<Player> playerTypedQuery = entityManager.createQuery("from Player", Player.class);
+
+        List<Player> players = playerTypedQuery.getResultList().stream()
+                .sorted(Comparator.comparing(a -> a.getAssists(), Comparator.reverseOrder()))
+                .collect(Collectors.toList());
+
+        for (int i = 0; i < players.size(); i++){
+            Player player = players.get(i);
+            System.out.println((i + 1) + ". " + player.getFirstName() + " " + player.getLastName() +
+                    " (" + player.getClub().getName() + ") :  " + player.getAssists() + " assists.");
+        }
+
+        transaction.commit();
+        entityManager.close();
+    }
+
+
 
 }

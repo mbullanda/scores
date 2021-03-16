@@ -28,4 +28,8 @@ public class PlayerService {
         playerDao.displayBestScorers();
     }
 
+    public void displayBestAssistants(){
+        playerDao.displayBestAssistants();
+    }
+
 }
