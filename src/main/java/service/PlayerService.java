@@ -32,4 +32,8 @@ public class PlayerService {
         playerDao.displayBestAssistants();
     }
 
+    public void clearStatistics(boolean sure, String password){
+        playerDao.clearStatistics(sure,password);
+    }
+
 }

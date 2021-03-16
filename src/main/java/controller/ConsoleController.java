@@ -144,6 +144,68 @@ public class ConsoleController {
     }
 
     private void dataOperationsPanel() {
+        for (int i = 0; ; i++){
+            System.out.println("Welcome in data operations menu. Enter action: ");
+            System.out.println("1.Add new...");
+            System.out.println("2.Add goals");
+            System.out.println("3.");
+            System.out.println("4.Delete...");
+            System.out.println();
+            System.out.println("0.Back");
+            int number = scanner().nextInt();
+
+            switch (number) {
+                case 1:
+                    System.out.println("soon");
+                    break;
+                case 2:
+                    System.out.print("Enter player number: ");
+                    int playerNumber = scanner().nextInt();
+                    System.out.print("Enter club id: ");
+                    long clubId = scanner().nextLong();
+                    playerService.addGoal(playerNumber,clubId);
+                    break;
+                case 3:
+                    System.out.print("soon");
+                    break;
+                case 4:
+                    System.out.println("Enter action: ");
+                    System.out.println("1.Delete player");
+                    System.out.println("2.Delete club");
+                    System.out.println("3.Delete coach");
+                    System.out.println("4.Delete country");
+                    System.out.println("5.Clear statistics");
+                    System.out.println();
+                    System.out.println("0.Back");
+                    int action = scanner().nextInt();
+                    if (action == 1){
+
+                    } else if (action == 2){
+
+                    } else if (action == 3){
+
+                    } else if (action == 4){
+
+                    } else if (action == 5){
+                        System.out.print("Are you sure you want to clear statistics?[yes/no]");
+                        String sure = scanner().nextLine();
+                        boolean areYouSure = false;
+                        if (sure.equalsIgnoreCase("yes")){
+                            areYouSure = true;
+                        } else {
+                            break;
+                        }
+                        System.out.print("Type password:");
+                        String password = scanner().nextLine();
+                        playerService.clearStatistics(areYouSure,password);
+                    } else if (action == 0){
+                        break;
+                    }
+                    break;
+                case 0:
+                    return;
+            }
+        }
 
     }
 
@@ -167,11 +229,15 @@ public class ConsoleController {
                     System.out.println("Enter action:");
                     System.out.println("1.Scorers");
                     System.out.println("2.Assistants");
+                    System.out.println();
+                    System.out.println("0.Back");
                     int action = scanner().nextInt();
                     if (action == 1){
                         playerService.displayBestScorers();
                     } else if (action == 2){
                         playerService.displayBestAssistants();
+                    } else if (action == 0){
+                        break;
                     }
                     break;
                 case 2:
