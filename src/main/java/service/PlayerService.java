@@ -20,8 +20,16 @@ public class PlayerService {
         return playerDao.findPlayerById(id);
     }
 
+    public Player findPlayerByNumberAndClubId(int number, Long clubId){
+        return playerDao.findPlayerByNumberAndClubId(number,clubId);
+    }
+
     public void addGoal(int number, Long clubId){
-        playerDao.addGoal(number,clubId);
+        if (findPlayerByNumberAndClubId(number,clubId) != null){
+            playerDao.addGoal(number,clubId);
+        } else {
+            System.out.println("Player doesn't exist!");
+        }
     }
 
     public void displayBestScorers(){
@@ -34,6 +42,15 @@ public class PlayerService {
 
     public void clearStatistics(boolean sure, String password){
         playerDao.clearStatistics(sure,password);
+    }
+
+    public void deletePlayer(int number, Long clubId){
+        if (findPlayerByNumberAndClubId(number,clubId) != null){
+            playerDao.deletePlayer(number,clubId);
+        } else {
+            System.out.println("Player doesn't exist!");
+        }
+
     }
 
 }

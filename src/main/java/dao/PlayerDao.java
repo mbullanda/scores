@@ -58,6 +58,27 @@ public class PlayerDao {
         return player;
     }
 
+    public Player findPlayerByNumberAndClubId(int number, Long clubId){
+        EntityManager entityManager = factory.createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+
+        String query = "from Player p where p.number = :number and p.club = :club";
+
+        Club club = entityManager.find(Club.class, clubId);
+
+        TypedQuery<Player> typedQuery = entityManager.createQuery(query, Player.class);
+        typedQuery.setParameter("number", number);
+        typedQuery.setParameter("club", club);
+
+        Player player = typedQuery.getSingleResult();
+
+        transaction.commit();
+        entityManager.close();
+
+        return player;
+    }
+
     public void addGoal(int number, Long clubId){
         EntityManager entityManager = factory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
@@ -147,6 +168,27 @@ public class PlayerDao {
 
             entityManager.close();
         }
+    }
+
+    public void deletePlayer(int number, Long clubId){
+        EntityManager entityManager = factory.createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+
+        String query = "from Player p where p.number = :number and p.club = :club";
+
+        Club club = entityManager.find(Club.class, clubId);
+
+        TypedQuery<Player> typedQuery = entityManager.createQuery(query, Player.class);
+        typedQuery.setParameter("number", number);
+        typedQuery.setParameter("club", club);
+
+        Player player = typedQuery.getSingleResult();
+
+        entityManager.remove(player);
+
+        transaction.commit();
+        entityManager.close();
     }
 
 
