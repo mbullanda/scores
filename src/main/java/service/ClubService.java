@@ -3,12 +3,6 @@ package service;
 import dao.ClubDao;
 import lombok.AllArgsConstructor;
 import model.Club;
-import model.Player;
-
-import java.util.Comparator;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 
 @AllArgsConstructor
@@ -27,9 +21,9 @@ public class ClubService {
         return clubDao.findClubById(id);
     }
 
-    public void getPlayersByClub(Long clubId){
+    public void viewTeam(Long clubId){
         if (clubDao.findClubById(clubId) != null) {
-            clubDao.getPlayersByClub(clubId);
+            clubDao.viewTeam(clubId);
         } else {
             System.out.println("Club doesn't exists!");
         }

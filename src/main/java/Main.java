@@ -8,7 +8,6 @@ import service.CountryService;
 import service.PlayerService;
 
 import javax.persistence.EntityManagerFactory;
-import java.util.Scanner;
 
 public class Main {
 
@@ -29,7 +28,7 @@ public class Main {
        // DbFiller.dbFiller(playerService,coachService,clubService,countryService);
 //        initiateData();
 
-        consoleController.mainMenu(consoleController);
+        consoleController.mainMenu();
 
     }
 

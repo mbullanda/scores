@@ -26,50 +26,20 @@ public class ConsoleController {
     }
 
     public void savePlayer(){
-        System.out.print("Enter number: ");
-        int number = scanner().nextInt();
-        System.out.print("Enter first name: ");
-        String firstName = scanner().nextLine();
-        System.out.print("Enter last name: ");
-        String lastName = scanner().nextLine();
-        System.out.print("Enter date of birth (yyyyMMdd): ");
-        String dateOfBirth = scanner().nextLine();
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMdd");
-        LocalDate parsedDate = LocalDate.parse(dateOfBirth, dateTimeFormatter);
-        System.out.print("Enter goals: ");
-        int goals = scanner().nextInt();
-        System.out.print("Enter assists: ");
-        int assists = scanner().nextInt();
-        System.out.print("Enter club id: ");
-        long clubId = scanner().nextLong();
-        Club club = clubService.findClubById(clubId);
-        System.out.print("Enter country id: ");
-        long countryId = scanner().nextLong();
-        Country country = countryService.findCountryById(countryId);
-        Player player = Player.builder()
-                .number(number)
-                .firstName(firstName)
-                .lastName(lastName)
-                .dateOfBirth(parsedDate)
-                .assists(assists)
-                .goals(goals)
-                .club(club)
-                .country(country)
-                .build();
-        playerService.savePlayer(player);
+        new PlayerController().savePlayer(playerService,countryService,clubService);
     }
 
     public void saveCoach(){
-        coachService.saveCoach(new Coach());
+        new CoachController().saveCoach(coachService, countryService, clubService);
     }
     public void saveClub(){
-        clubService.saveClub(new Club());
+        new ClubController().saveClub(clubService, countryService);
     }
     public void saveCountry(){
-        countryService.saveCountry(new Country());
+        new CountryController().saveCountry(countryService);
     }
 
-    public void mainMenu(ConsoleController consoleController){
+    public void mainMenu(){
         for (int i = 0; ; i++) {
             Scanner scanner = new Scanner(System.in);
             System.out.println("Welcome in Scores! Enter action: ");
@@ -77,6 +47,7 @@ public class ConsoleController {
             System.out.println("2.STATISTICS");
             System.out.println("3.DATA OPERATIONS");
             System.out.println("4.ADD NEW MATCH");
+            System.out.println("5.Soon");
             System.out.println();
             System.out.println("0.EXIT");
             int number = scanner.nextInt();
@@ -99,43 +70,6 @@ public class ConsoleController {
                 case 0:
                     return;
             }
-
-//
-////            System.out.println("Enter action: ");
-//            System.out.println("1.Add new player");
-////            System.out.println("2.Display players in club");
-//            System.out.println("3.Add goals xD");
-////            System.out.println("4.Display clubs in country");
-////            System.out.println("5.Display coaches by country");
-////            System.out.println("6.Display best scorers");
-//            System.out.println();
-//            System.out.println("0.Exit");
-//
-//            if (number == 1) {
-//                consoleController.savePlayer();
-//            } else if (number == 2){
-//                System.out.print("Enter club id: ");
-//                long clubId = scanner.nextLong();
-//                clubService.getPlayersByClub(clubId);
-//            } else if (number == 3){
-//                System.out.print("Enter player number:");
-//                int playerNumber = scanner.nextInt();
-//                System.out.print("Enter club id:");
-//                long clubId = scanner.nextLong();
-//                playerService.addGoal(playerNumber,clubId);
-//            } else if (number == 4){
-//                System.out.print("Enter country id:");
-//                long countryId = scanner.nextLong();
-//                countryService.displayClubsInCountry(countryId);
-//            } else if (number == 5){
-//                System.out.println("Enter country id:");
-//                long countryId = scanner.nextLong();
-//                coachService.displayCoachesByCountryId(countryId);
-//            } else if (number == 6){
-//                playerService.displayBestScorers();
-//            } else if (number == 0){
-//                break;
-//            }
         }
     }
 
@@ -156,8 +90,26 @@ public class ConsoleController {
 
             switch (number) {
                 case 1:
-                    System.out.println("soon");
-                    break;
+                    System.out.println("Enter adding action:");
+                    System.out.println("1.Add new player");
+                    System.out.println("2.Add new club");
+                    System.out.println("3.Add new coach");
+                    System.out.println("4.Add new country");
+                    System.out.println();
+                    System.out.println("0.Back");
+                    int action = scanner().nextInt();
+                    if (action == 1){
+                        savePlayer();
+                    } else if (action == 2){
+                        saveClub();
+                    } else if (action == 3){
+                        saveCoach();
+                    } else if (action == 4){
+                        saveCountry();
+                    } else if (action == 0){
+                        break;
+                    }
+                        break;
                 case 2:
                     System.out.print("Enter player number: ");
                     int playerNumber = scanner().nextInt();
@@ -177,15 +129,15 @@ public class ConsoleController {
                     System.out.println("5.Clear statistics");
                     System.out.println();
                     System.out.println("0.Back");
-                    int action = scanner().nextInt();
+                    action = scanner().nextInt();
                     if (action == 1){
-
+                        System.out.println("delete player");
                     } else if (action == 2){
-
+                        System.out.println("delete club");
                     } else if (action == 3){
-
+                        System.out.println("delete coach");
                     } else if (action == 4){
-
+                        System.out.println("delete country");
                     } else if (action == 5){
                         System.out.print("Are you sure you want to clear statistics?[yes/no]");
                         String sure = scanner().nextLine();
@@ -243,7 +195,7 @@ public class ConsoleController {
                 case 2:
                     System.out.print("Enter club id: ");
                     long clubId = scanner().nextLong();
-                    clubService.getPlayersByClub(clubId);
+                    clubService.viewTeam(clubId);
                     break;
                 case 3:
                     System.out.print("Enter country id:");

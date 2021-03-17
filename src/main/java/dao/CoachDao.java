@@ -28,11 +28,6 @@ public class CoachDao {
         Club club = coach.getClub();
         club.addCoach(coach);
 
-
-
-//        entityManager.persist(country);
-//        entityManager.persist(club);
-
         System.out.println("Saving coach: " + coach.getFirstName() + " " + coach.getLastName());
 
         transaction.commit();
@@ -68,7 +63,7 @@ public class CoachDao {
         Set<Coach> coaches = country.getCoaches();
 
         for (Coach coach : coaches) {
-            System.out.println(coach.toString());
+            System.out.println(coach.toString() + ", " + coach.getClub().getName());
         }
 
         transaction.commit();

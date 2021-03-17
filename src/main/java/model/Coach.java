@@ -31,7 +31,7 @@ public class Coach {
 
     @Override
     public String toString() {
-        return firstName + " " + lastName + " (" + getAge() + ", " + country.getIsoCode() +"), " + club.getName();
+        return firstName + " " + lastName + " (" + getAge() + ", " + country.getIsoCode() +")";
     }
 
     private int getAge() {

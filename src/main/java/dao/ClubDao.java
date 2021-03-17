@@ -1,6 +1,7 @@
 package dao;
 
 import model.Club;
+import model.Coach;
 import model.Country;
 import model.Player;
 
@@ -60,7 +61,7 @@ public class ClubDao {
         return club;
     }
 
-    public Set<Player> getPlayersByClub(Long clubId){
+    public void viewTeam(Long clubId){
         EntityManager entityManager = factory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
@@ -68,16 +69,21 @@ public class ClubDao {
         Club club = entityManager.find(Club.class, clubId);
 
         Set<Player> players = club.getPlayers();
+        Set<Coach> coaches = club.getCoaches();
 
+        System.out.println(club.getName());
+        System.out.println("    Players in: ");
         players.stream()
                 .sorted(Comparator.comparing(s -> s.getNumber()))
                 .forEach(System.out::println);
 
+        System.out.println("    Coaches in: ");
+        coaches.stream()
+                .forEach(System.out::println);
+        System.out.println();
 
         transaction.commit();
         entityManager.close();
-
-        return players;
     }
 
 
