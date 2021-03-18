@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class CountryController {
 
-    public void saveCountry(CountryService countryService){
+    public static void saveCountry(CountryService countryService){
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter name: ");
         String name = scanner.nextLine();

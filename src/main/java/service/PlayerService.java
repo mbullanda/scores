@@ -50,7 +50,14 @@ public class PlayerService {
         } else {
             System.out.println("Player doesn't exist!");
         }
+    }
 
+    public void editPlayer(int number, Long clubId, int action){
+        if (findPlayerByNumberAndClubId(number,clubId) != null){
+            playerDao.editPlayer(number,clubId,action);
+        } else {
+            System.out.println("Player doesn't exist!");
+        }
     }
 
 }

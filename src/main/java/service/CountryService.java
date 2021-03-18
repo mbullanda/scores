@@ -24,4 +24,13 @@ public class CountryService {
         countryDao.displayClubsInCountry(countryId);
     }
 
+    public void deleteCountry(Long id){
+        if (findCountryById(id) != null){
+            countryDao.deleteCountry(id);
+        } else {
+            System.out.println("Country doesn't exists!");
+        }
+
+    }
+
 }

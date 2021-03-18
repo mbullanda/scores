@@ -13,7 +13,7 @@ import java.util.Scanner;
 
 public class PlayerController {
 
-    public void savePlayer(PlayerService playerService, CountryService countryService, ClubService clubService){
+    public static void savePlayer(PlayerService playerService, CountryService countryService, ClubService clubService){
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter number: ");
         int number = scanner.nextInt();

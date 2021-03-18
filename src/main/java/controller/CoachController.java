@@ -13,7 +13,7 @@ import java.util.Scanner;
 
 public class CoachController {
 
-    public void saveCoach(CoachService coachService, CountryService countryService, ClubService clubService){
+    public static void saveCoach(CoachService coachService, CountryService countryService, ClubService clubService){
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter first name: ");
         String firstName = scanner.nextLine();

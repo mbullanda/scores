@@ -24,4 +24,12 @@ public class CoachService {
     public void displayCoachesByCountryId(Long id){
         coachDao.displayCoachesByCountryId(id);
     }
+
+    public void deleteCoach(Long id){
+        coachDao.deleteCoach(id);
+    }
+
+    public void editCoach(Long id, int action){
+        coachDao.editCoach(id, action);
+    }
 }

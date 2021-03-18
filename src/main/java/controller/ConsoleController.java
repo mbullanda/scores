@@ -5,6 +5,7 @@ import controller.submenu.BrowseMenu;
 import controller.submenu.DataOperationsMenu;
 import controller.submenu.StatisticsMenu;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import service.ClubService;
 import service.CoachService;
 import service.CountryService;
@@ -20,19 +21,19 @@ public class ConsoleController {
     private final CountryService countryService;
 
     public void savePlayer(){
-        new PlayerController().savePlayer(playerService,countryService,clubService);
+        PlayerController.savePlayer(playerService,countryService,clubService);
     }
 
     public void saveCoach(){
-        new CoachController().saveCoach(coachService, countryService, clubService);
+        CoachController.saveCoach(coachService, countryService, clubService);
     }
 
     public void saveClub(){
-        new ClubController().saveClub(clubService, countryService);
+        ClubController.saveClub(clubService, countryService);
     }
 
     public void saveCountry(){
-        new CountryController().saveCountry(countryService);
+        CountryController.saveCountry(countryService);
     }
 
     public void mainMenu(){

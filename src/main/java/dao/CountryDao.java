@@ -6,6 +6,7 @@ import model.Country;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
+import javax.persistence.TypedQuery;
 import java.util.Comparator;
 import java.util.Set;
 
@@ -62,6 +63,25 @@ public class CountryDao {
             System.out.println(c.getName() + ", players in squad: " + c.getPlayers().size() + ", trophies: "
                     + c.getTrophies());
         }
+
+        transaction.commit();
+        entityManager.close();
+    }
+
+    public void deleteCountry(Long id){
+        EntityManager entityManager = factory.createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+
+        String query = "from Country c where c.id = :id";
+
+        TypedQuery<Country> typedQuery = entityManager.createQuery(query, Country.class);
+        typedQuery.setParameter("id", id);
+
+        Country country = typedQuery.getSingleResult();
+
+        System.out.println(country.getName() + " successfully deleted!");
+        entityManager.remove(country);
 
         transaction.commit();
         entityManager.close();

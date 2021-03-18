@@ -7,7 +7,6 @@ import model.Player;
 
 import javax.persistence.*;
 import java.util.Comparator;
-import java.util.List;
 import java.util.Set;
 
 public class ClubDao {
@@ -33,14 +32,6 @@ public class ClubDao {
         transaction.begin();
 
         entityManager.persist(club);
-
-
-        System.out.println("club.toString() = " + club.toString());
-        System.out.println("country.toString() = " + country.toString());
-
-
-
-//        entityManager.persist(country);
 
         System.out.println("Saving club: " + club.getName());
 
@@ -86,5 +77,23 @@ public class ClubDao {
         entityManager.close();
     }
 
+    public void deleteClub(Long id){
+        EntityManager entityManager = factory.createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+
+        String query = "from Club c where c.id = :id";
+
+        TypedQuery<Club> typedQuery = entityManager.createQuery(query, Club.class);
+        typedQuery.setParameter("id", id);
+
+        Club club = typedQuery.getSingleResult();
+
+        System.out.println(club.getName() + " successfully deleted!");
+        entityManager.remove(club);
+
+        transaction.commit();
+        entityManager.close();
+    }
 
 }

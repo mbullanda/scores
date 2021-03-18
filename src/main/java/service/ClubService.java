@@ -28,5 +28,13 @@ public class ClubService {
             System.out.println("Club doesn't exists!");
         }
     }
+    public void deleteClub(Long id){
+        if (clubDao.findClubById(id) != null){
+            clubDao.deleteClub(id);
+        } else {
+            System.out.println("Club doesn't exists!");
+        }
+
+    }
 
 }

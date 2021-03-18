@@ -5,6 +5,8 @@ import model.Country;
 import model.Player;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
@@ -35,9 +37,6 @@ public class PlayerDao {
         country.addPlayer(player);
         Club club = player.getClub();
         club.addPlayer(player);
-
-//        entityManager.persist(country);
-//        entityManager.persist(club);
 
         System.out.println("Saving player: " + player.getFirstName() + " " + player.getLastName());
 
@@ -95,7 +94,6 @@ public class PlayerDao {
         Player player = typedQuery.getSingleResult();
 
         player.setGoals(player.getGoals() + 1);
-
 
         transaction.commit();
         entityManager.close();
@@ -165,7 +163,6 @@ public class PlayerDao {
                 transaction.rollback();
             }
 
-
             entityManager.close();
         }
     }
@@ -185,7 +182,70 @@ public class PlayerDao {
 
         Player player = typedQuery.getSingleResult();
 
+        System.out.println(player.getFirstName() + " " + player.getLastName() + " successfully deleted!");
         entityManager.remove(player);
+
+        transaction.commit();
+        entityManager.close();
+    }
+
+    public void editPlayer(int number, Long clubId, int action){
+        EntityManager entityManager = factory.createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+
+        String query = "from Player p where p.number = :number and p.club = :club";
+
+        Club club = entityManager.find(Club.class, clubId);
+
+        TypedQuery<Player> typedQuery = entityManager.createQuery(query, Player.class);
+        typedQuery.setParameter("number", number);
+        typedQuery.setParameter("club", club);
+
+        Player player = typedQuery.getSingleResult();
+
+        Scanner scanner = new Scanner(System.in);
+        switch (action){
+            case 1:
+                System.out.print("Enter first name: ");
+                String firstName = scanner.nextLine();
+                player.setFirstName(firstName);
+                break;
+            case 2:
+                System.out.print("Enter last name: ");
+                String lastName = scanner.nextLine();
+                player.setLastName(lastName);
+                break;
+            case 3:
+                System.out.print("Enter date of birth (yyyyMMdd): ");
+                String dateOfBirth = scanner.nextLine();
+                DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+                LocalDate parsedDate = LocalDate.parse(dateOfBirth, dateTimeFormatter);
+                player.setDateOfBirth(parsedDate);
+                break;
+            case 4:
+                System.out.print("Enter goals: ");
+                int goals = scanner.nextInt();
+                player.setGoals(goals);
+                break;
+            case 5:
+                System.out.print("Enter assists: ");
+                int assists = scanner.nextInt();
+                player.setAssists(assists);
+                break;
+            case 6:
+                System.out.print("Enter club id: ");
+                long newClubId = scanner.nextLong();
+                Club newClub = entityManager.find(Club.class, newClubId);
+                player.setClub(newClub);
+                break;
+            case 7:
+                System.out.print("Enter country id: ");
+                long newCountryId = scanner.nextLong();
+                Country newCountry = entityManager.find(Country.class, newCountryId);
+                player.setCountry(newCountry);
+                break;
+        }
 
         transaction.commit();
         entityManager.close();

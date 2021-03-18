@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 public class ClubController {
 
-    public void saveClub(ClubService clubService, CountryService countryService){
+    public static void saveClub(ClubService clubService, CountryService countryService){
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter name: ");
         String name = scanner.nextLine();
