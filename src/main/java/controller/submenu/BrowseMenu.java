@@ -18,6 +18,7 @@ public class BrowseMenu {
             System.out.println("2.View team");
             System.out.println("3.Display clubs by country");
             System.out.println("4.Display coaches by country");
+            System.out.println("5.Display players by country");
             System.out.println();
             System.out.println("0.Back");
             int number = scanner.nextInt();
@@ -44,14 +45,19 @@ public class BrowseMenu {
                     clubService.viewTeam(clubId);
                     break;
                 case 3:
-                    System.out.print("Enter country id:");
+                    System.out.print("Enter country id: ");
                     long countryId = scanner.nextLong();
                     countryService.displayClubsInCountry(countryId);
                     break;
                 case 4:
-                    System.out.println("Enter country id:");
+                    System.out.print("Enter country id: ");
                     countryId = scanner.nextLong();
                     coachService.displayCoachesByCountryId(countryId);
+                    break;
+                case 5:
+                    System.out.print("Enter country id: ");
+                    countryId = scanner.nextLong();
+                    playerService.displayPlayersByCountryId(countryId);
                     break;
                 case 0:
                     return;

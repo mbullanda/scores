@@ -60,4 +60,8 @@ public class PlayerService {
         }
     }
 
+    public void displayPlayersByCountryId(Long countryId){
+        playerDao.displayPlayersByCountryId(countryId);
+    }
+
 }

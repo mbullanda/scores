@@ -1,6 +1,7 @@
 package dao;
 
 import model.Club;
+import model.Coach;
 import model.Country;
 import model.Player;
 
@@ -10,6 +11,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class PlayerDao {
@@ -141,8 +143,25 @@ public class PlayerDao {
         entityManager.close();
     }
 
+    public void displayPlayersByCountryId(Long countryId){
+        EntityManager entityManager = factory.createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+
+        Country country = entityManager.find(Country.class, countryId);
+
+        Set<Player> players = country.getPlayers();
+
+        for (Player player : players) {
+            System.out.println(player.toString() + ", " + player.getClub().getName());
+        }
+
+        transaction.commit();
+        entityManager.close();
+    }
+
     public void clearStatistics(boolean sure, String password){
-        if (sure == true && password.equals("lalala")){
+        if (sure && password.equals("lalala")){
             EntityManager entityManager = factory.createEntityManager();
             EntityTransaction transaction = entityManager.getTransaction();
             transaction.begin();
