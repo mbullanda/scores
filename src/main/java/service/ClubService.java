@@ -25,16 +25,23 @@ public class ClubService {
         if (clubDao.findClubById(clubId) != null) {
             clubDao.viewTeam(clubId);
         } else {
-            System.out.println("Club doesn't exists!");
+            System.out.println("Club doesn't exist!");
         }
     }
     public void deleteClub(Long id){
         if (clubDao.findClubById(id) != null){
             clubDao.deleteClub(id);
         } else {
-            System.out.println("Club doesn't exists!");
+            System.out.println("Club doesn't exist!");
         }
+    }
 
+    public void editClub(Long clubId, int action){
+        if (clubDao.findClubById(clubId) != null){
+            clubDao.editClub(clubId,action);
+        } else {
+            System.out.println("Club doesn't exist!");
+        }
     }
 
 }

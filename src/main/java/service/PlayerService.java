@@ -36,7 +36,7 @@ public class PlayerService {
         if (findPlayerByNumberAndClubId(number,clubId) != null){
             playerDao.addAssist(number,clubId);
         } else {
-            System.out.println("Player doesn't exists!");
+            System.out.println("Player doesn't exist!");
         }
     }
 

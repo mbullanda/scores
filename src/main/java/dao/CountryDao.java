@@ -7,7 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
-import java.util.Comparator;
+import java.util.Scanner;
 import java.util.Set;
 
 public class CountryDao {
@@ -82,6 +82,46 @@ public class CountryDao {
 
         System.out.println(country.getName() + " successfully deleted!");
         entityManager.remove(country);
+
+        transaction.commit();
+        entityManager.close();
+    }
+
+    public void editCountry(long countryId, int action) {
+        EntityManager entityManager = factory.createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+
+        String query = "from Country c where c.id = :id";
+
+        TypedQuery<Country> typedQuery = entityManager.createQuery(query, Country.class);
+        typedQuery.setParameter("id", countryId);
+
+        Country country = typedQuery.getSingleResult();
+
+        Scanner scanner = new Scanner(System.in);
+        switch (action){
+            case 1:
+                System.out.print("Enter name: ");
+                String name = scanner.nextLine();
+                country.setName(name);
+                break;
+            case 2:
+                System.out.print("Enter iso code: ");
+                String isoCode = scanner.nextLine();
+                country.setIsoCode(isoCode);
+                break;
+            case 3:
+                System.out.print("Enter surface area: ");
+                int surfaceArea = scanner.nextInt();
+                country.setSurfaceArea(surfaceArea);
+                break;
+            case 4:
+                System.out.print("Enter population: ");
+                int population = scanner.nextInt();
+                country.setPopulation(population);
+                break;
+        }
 
         transaction.commit();
         entityManager.close();

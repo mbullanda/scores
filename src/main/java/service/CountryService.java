@@ -28,9 +28,16 @@ public class CountryService {
         if (findCountryById(id) != null){
             countryDao.deleteCountry(id);
         } else {
-            System.out.println("Country doesn't exists!");
+            System.out.println("Country doesn't exist!");
         }
 
     }
 
+    public void editCountry(long countryId, int actionEdit) {
+        if (findCountryById(countryId) != null){
+            countryDao.editCountry(countryId,actionEdit);
+        } else {
+            System.out.println("Country doesn't exist!");
+        }
+    }
 }

@@ -92,7 +92,15 @@ public class DataOperationsMenu {
                         int actionEdit = scanner.nextInt();
                         playerService.editPlayer(playerNumber,clubId,actionEdit);
                     } else if (action == 2){
-                        System.out.println("edit club");
+                        System.out.print("Enter club id: ");
+                        long clubId = scanner.nextLong();
+                        System.out.println("What do you want to edit?");
+                        System.out.println("1.Name");
+                        System.out.println("2.Country");
+                        System.out.println("3.Date of foundation");
+                        System.out.println("4.Amount of trophies");
+                        int actionEdit = scanner.nextInt();
+                        clubService.editClub(clubId,actionEdit);
                     } else if (action == 3){
                         System.out.print("Enter coach id: ");
                         long coachId = scanner.nextLong();
@@ -105,7 +113,15 @@ public class DataOperationsMenu {
                         int actionEdit = scanner.nextInt();
                         coachService.editCoach(coachId,actionEdit);
                     } else if (action == 4) {
-                        System.out.println("edit country");
+                        System.out.print("Enter country id: ");
+                        long countryId = scanner.nextLong();
+                        System.out.println("What do you want to edit?");
+                        System.out.println("1.Name");
+                        System.out.println("2.Iso code");
+                        System.out.println("3.Surface area");
+                        System.out.println("4.Population");
+                        int actionEdit = scanner.nextInt();
+                        countryService.editCountry(countryId,actionEdit);
                     } else if (action == 0) {
                         break;
                     }
