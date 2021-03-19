@@ -19,7 +19,7 @@ public class DataOperationsMenu {
         for (int i = 0; ; i++){
             System.out.println("Welcome in data operations menu. Enter action: ");
             System.out.println("1.Add new...");
-            System.out.println("2.Add goals");
+            System.out.println("2.Add goals/assists");
             System.out.println("3.Edit...");
             System.out.println("4.Delete...");
             System.out.println();
@@ -49,11 +49,23 @@ public class DataOperationsMenu {
                     }
                     break;
                 case 2:
-                    System.out.print("Enter player number: ");
-                    int playerNumber = scanner.nextInt();
-                    System.out.print("Enter club id: ");
-                    long clubId = scanner.nextLong();
-                    playerService.addGoal(playerNumber,clubId);
+                    System.out.println("What do you want to add?");
+                    System.out.println("1.Goals");
+                    System.out.println("2.Assists");
+                    int goalsAssists = scanner.nextInt();
+                    if (goalsAssists == 1){
+                        System.out.print("Enter player number: ");
+                        int playerNumber = scanner.nextInt();
+                        System.out.print("Enter club id: ");
+                        long clubId = scanner.nextLong();
+                        playerService.addGoal(playerNumber,clubId);
+                    } else if (goalsAssists == 2){
+                        System.out.print("Enter player number: ");
+                        int playerNumber = scanner.nextInt();
+                        System.out.print("Enter club id: ");
+                        long clubId = scanner.nextLong();
+                        playerService.addAssist(playerNumber,clubId);
+                    }
                     break;
                 case 3:
                     System.out.println("Enter action: ");
@@ -66,9 +78,9 @@ public class DataOperationsMenu {
                     action = scanner.nextInt();
                     if (action == 1){
                         System.out.print("Enter player number: ");
-                        playerNumber = scanner.nextInt();
+                        int playerNumber = scanner.nextInt();
                         System.out.print("Enter club id: ");
-                        clubId = scanner.nextLong();
+                        long clubId = scanner.nextLong();
                         System.out.println("What do you want to edit?");
                         System.out.println("1.First name");
                         System.out.println("2.Last name");
@@ -110,9 +122,9 @@ public class DataOperationsMenu {
                     action = scanner.nextInt();
                     if (action == 1){
                         System.out.print("Enter player number: ");
-                        playerNumber = scanner.nextInt();
+                        int playerNumber = scanner.nextInt();
                         System.out.print("Enter club id: ");
-                        clubId = scanner.nextLong();
+                        long clubId = scanner.nextLong();
                         Player player = playerService.findPlayerByNumberAndClubId(playerNumber, clubId);
                         System.out.println("Are you sure you want to delete " + player.getFirstName() + " "
                                 + player.getLastName() + "?[yes/no]");
@@ -123,7 +135,7 @@ public class DataOperationsMenu {
                         playerService.deletePlayer(playerNumber,clubId);
                     } else if (action == 2){
                         System.out.print("Enter club id: ");
-                        clubId = scanner.nextLong();
+                        long clubId = scanner.nextLong();
                         System.out.println("Are you sure you want to delete " + clubService.findClubById(clubId).getName()
                                 + "?[yes/no]");
                         boolean sure = areYouSure();

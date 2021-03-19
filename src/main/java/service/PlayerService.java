@@ -32,6 +32,14 @@ public class PlayerService {
         }
     }
 
+    public void addAssist(int number, Long clubId){
+        if (findPlayerByNumberAndClubId(number,clubId) != null){
+            playerDao.addAssist(number,clubId);
+        } else {
+            System.out.println("Player doesn't exists!");
+        }
+    }
+
     public void displayBestScorers(){
         playerDao.displayBestScorers();
     }

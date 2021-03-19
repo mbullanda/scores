@@ -1,7 +1,6 @@
 package dao;
 
 import model.Club;
-import model.Coach;
 import model.Country;
 import model.Player;
 
@@ -96,6 +95,27 @@ public class PlayerDao {
         Player player = typedQuery.getSingleResult();
 
         player.setGoals(player.getGoals() + 1);
+
+        transaction.commit();
+        entityManager.close();
+    }
+
+    public void addAssist(int number, Long clubId){
+        EntityManager entityManager = factory.createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+
+        String query = "from Player p where p.number = :number and p.club = :club";
+
+        Club club = entityManager.find(Club.class, clubId);
+
+        TypedQuery<Player> typedQuery = entityManager.createQuery(query, Player.class);
+        typedQuery.setParameter("number", number);
+        typedQuery.setParameter("club", club);
+
+        Player player = typedQuery.getSingleResult();
+
+        player.setAssists(player.getGoals() + 1);
 
         transaction.commit();
         entityManager.close();
