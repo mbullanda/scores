@@ -9,8 +9,8 @@ import java.util.Set;
 @Entity
 @Data
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = {"clubs", "players", "coaches"})
-@ToString(exclude = {"clubs", "players", "coaches"})
+@EqualsAndHashCode(exclude = {"clubs", "players", "coaches", "matches"})
+@ToString(exclude = {"clubs", "players", "coaches", "matches"})
 @Builder
 @AllArgsConstructor
 public class Country {
@@ -33,6 +33,9 @@ public class Country {
     @OneToMany(mappedBy = "country", fetch = FetchType.EAGER)
     @Builder.Default
     private Set<Coach> coaches = new HashSet<>();
+    @OneToMany(mappedBy = "country", fetch = FetchType.EAGER)
+    @Builder.Default
+    private Set<Match> matches = new HashSet<>();
 
     public void addClub(Club club) {
         clubs.add(club);

@@ -11,12 +11,13 @@
     <property name="hibernate.format_sql">true</property>
     <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
     <property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property>
-    <property name="hibernate.hbm2ddl.auto">validate</property>
+    <property name="hibernate.hbm2ddl.auto">create</property>
 
     <mapping class="model.Club"/>
     <mapping class="model.Coach"/>
     <mapping class="model.Country"/>
     <mapping class="model.Player"/>
+    <mapping class="model.Match"/>
 
     </session-factory>
 </hibernate-configuration>

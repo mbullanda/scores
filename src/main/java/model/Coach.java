@@ -5,12 +5,14 @@ import lombok.*;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Data
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = {"club", "country"})
-@ToString(exclude = {"club", "country"})
+@EqualsAndHashCode(exclude = {"club", "country", "matches"})
+@ToString(exclude = {"club", "country", "matches"})
 @Builder
 @AllArgsConstructor
 public class Coach {
@@ -28,6 +30,13 @@ public class Coach {
     private Club club;
     @ManyToOne
     private Country country;
+    @ManyToMany(mappedBy = "coaches", fetch = FetchType.EAGER)
+    @Builder.Default
+    private Set<Match> matches = new HashSet<>();
+
+    public void addMatch(Match match){
+        matches.add(match);
+    }
 
     @Override
     public String toString() {

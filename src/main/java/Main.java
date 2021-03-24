@@ -25,7 +25,7 @@ public class Main {
 
         ConsoleController consoleController = new ConsoleController(playerService, clubService, coachService, countryService);
 
-       // DbFiller.dbFiller(playerService,coachService,clubService,countryService);
+       DbFiller.dbFiller(playerService,coachService,clubService,countryService);
 //        initiateData();
 
         consoleController.mainMenu();

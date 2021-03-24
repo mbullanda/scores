@@ -10,8 +10,8 @@ import java.util.Set;
 @Entity
 @Data
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = {"players", "coaches"})
-@ToString(exclude = {"players", "coaches"})
+@EqualsAndHashCode(exclude = {"players", "coaches", "matches"})
+@ToString(exclude = {"players", "coaches", "matches"})
 @Builder
 @AllArgsConstructor
 public class Club {
@@ -22,6 +22,7 @@ public class Club {
     private String name;
     @Column(name = "date_of_foundation")
     private LocalDate dateOfFoundation;
+    private int points;
     private int trophies;
     @ManyToOne
     private Country country;
@@ -31,6 +32,9 @@ public class Club {
     @OneToMany(mappedBy = "club", fetch = FetchType.EAGER)
     @Builder.Default
     private Set<Coach> coaches = new HashSet<>();
+    @ManyToMany(mappedBy = "clubs", fetch = FetchType.EAGER)
+    @Builder.Default
+    private Set<Match> matches = new HashSet<>();
 
     public void addPlayer(Player player){
         players.add(player);
@@ -39,6 +43,17 @@ public class Club {
     public void addCoach(Coach coach){
         coaches.add(coach);
         coach.setClub(this);
+    }
+    public void addMatch(Match match){
+        matches.add(match);
+    }
+
+    public void addPoints(int result){
+        if (result == 1){
+            this.points = getPoints() + 1;
+        } else if (result == 3){
+            this.points = getPoints() + 3;
+        }
     }
 
 
